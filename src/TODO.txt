@@ -1,0 +1,18 @@
+TODO
+-Implement item upgrades when you reach 100,1000,10000,etc.
+-Implement right bar
+-Implement Locked items and activations(right bar)
+-Fix gold amount moving back and forth
+-Hover text
+-Drawer
+-Spread button and grow button title bars
+-Fixed Stats bar size
+-Animation popup on button click
+-Formula for grow/spread button
+-Formula for item prices
+
+-Write how much gold/xp each grow is worth
+
+
+//////
+Completed

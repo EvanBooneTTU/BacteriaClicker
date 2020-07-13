@@ -1,0 +1,78 @@
+#growIcon {
+  border-radius: 50%;
+  width: 245px;
+  height: 245px;
+  box-shadow: 0 0 0 5px #263238;
+  background-color: #263238;
+  position: relative;
+  display: flex;
+}
+
+#growRoot {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-width: 300px;
+  min-height: 350px;
+  height: 47.8vh;
+
+  > [id^="x"] {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    color: white;
+    font-weight: bold;
+    animation: GoUp 1s forwards linear;
+    -moz-animation: GoUp 1s forwards linear;
+    -webkit-animation: GoUp 1s forwards linear;
+    -o-animation: GoUp 1s forwards linear;
+    -ms-animation: GoUp 1s forwards linear;
+  }
+}
+
+@-moz-keyframes GoUp {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    opacity: 0;
+  }
+}
+@keyframes GoUp {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes GoUp {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    opacity: 0;
+  }
+}
+@-o-keyframes GoUp {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    opacity: 0;
+  }
+}
+@-ms-keyframes GoUp {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    top: 0px;
+    opacity: 0;
+  }
+}
