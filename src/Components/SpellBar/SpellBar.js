@@ -44,11 +44,10 @@ class SpellBar extends React.Component {
   }
   render() {
     const { classes } = this.props;
-
     return (
       <div className={classes.root}>
-        <Timer className={classes.timer} active duration={null}>
-          <Timecode className={classes.timecode} />
+        <Timer active className={classes.timer} duration={null}>
+          <Timecode className={classes.timecode} time={this.props.time} />
         </Timer>
         <List>{this.renderSpells(this.props)}</List>
       </div>

@@ -30,6 +30,7 @@ class App extends React.Component {
     this.spreadButtonClick = this.spreadButtonClick.bind(this);
     this.growButtonClick = this.growButtonClick.bind(this);
     this.buyItem = this.buyItem.bind(this);
+    this.saveGame = this.saveGame.bind(this);
 
     this.state = {
       currency: 1000000000,
@@ -51,6 +52,7 @@ class App extends React.Component {
       playerLevel: 1,
       currentXp: 0,
       xpToLevelUp: 1000,
+      time: 0,
     };
   }
 
@@ -108,6 +110,7 @@ class App extends React.Component {
     this.setState((prevState) => {
       //Spread Button Click
       let objectCopy = Object.assign({}, prevState);
+      objectCopy.time += 1000;
       objectCopy.spreadCurrentValue =
         prevState.spreadCurrentValue +
         prevState.spreadPerClick * prevState.spreadClickPerSecond;
@@ -169,6 +172,18 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    //Grabs saved values in local storage
+    this.setState((prevState) => {
+      let objectCopy = Object.assign({}, prevState);
+
+      Object.keys(localStorage).forEach((key, index) => {
+        objectCopy[key] = JSON.parse(localStorage.getItem(key));
+      });
+
+      return objectCopy;
+    });
+
+    //Sets the purchase costs of all items
     this.setState((prevState) => {
       let objectCopy = Object.assign({}, prevState);
       objectCopy.shopData.forEach((item) => {
@@ -194,6 +209,7 @@ class App extends React.Component {
     });
 
     this.intervalID = setInterval(() => this.passiveButtonClicks(), 1000);
+    this.intervalID = setInterval(() => this.saveGame(), 60000);
     this.intervalID = setInterval(() => this.passiveIncome(), 250);
   }
 
@@ -321,6 +337,12 @@ class App extends React.Component {
     });
   }
 
+  saveGame() {
+    Object.keys(this.state).forEach((key) => {
+      localStorage.setItem(key, JSON.stringify(this.state[key]));
+    });
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -376,6 +398,7 @@ class App extends React.Component {
             <SpellBar
               activateSpell={this.activateSpell}
               spellData={this.state.spellData}
+              time={this.state.time}
             />
           </Grid>
         </Grid>
