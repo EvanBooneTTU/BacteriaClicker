@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import Avatar from "@material-ui/core/Avatar";
+import { prettyNumber } from "../PrettyNumber";
+import "./SpreadButton.scss";
 
-const styles = (theme) => ({
+const useStyles = makeStyles({
   titleBox: {
     height: "65px",
     width: "100%",
@@ -70,82 +72,92 @@ const styles = (theme) => ({
   },
 });
 
-class SpreadButton extends React.Component {
-  handleClick = (e) => {
-    this.props.onclick();
+export default function SpreadButton(props) {
+  const classes = useStyles();
+
+  let [elements, setElements] = useState([]);
+
+  let text2 = {
+    value: props.current.toFixed(0) + " / " + props.max + " hp",
+    style: {
+      color: "white",
+      float: "right",
+      padding: "0 10px 0 0",
+      margin: 0,
+      transform: {
+        prefix: true,
+        value: "translate(0%, -100%)",
+      },
+    },
   };
 
-  render() {
-    const { classes } = this.props;
-
-    let text2 = {
-      value: this.props.current.toFixed(0) + " / " + this.props.max + " hp",
-      style: {
-        color: "white",
-        float: "right",
-        padding: "0 10px 0 0",
-        margin: 0,
-        transform: {
-          prefix: true,
-          value: "translate(0%, -100%)",
-        },
-      },
-    };
-
-    return (
-      <div className={classes.root}>
-        <div className={classes.titleBox}>
-          <Typography className={classes.typography} variant="h4" gutterBottom>
-            {this.props.spreadButtonName}
-          </Typography>
-          <Typography
-            className={classes.subTitleBoxLeft}
-            variant="body2"
-            gutterBottom
-          >
-            <Avatar
-              variant="square"
-              alt="coins"
-              src="./Images/coins.png"
-              className={classes.coinIcon}
-              style={{ paddingRight: "5px" }}
-            />
-            {this.props.goldForKill.toFixed(0)}
-          </Typography>
-          <Typography
-            className={classes.subTitleBoxRight}
-            variant="body2"
-            gutterBottom
-          >
-            {this.props.xpPerKill} xp
-          </Typography>
-        </div>
-        <Line
-          duration={0.1}
-          key={this.props.current + this.props.max}
-          progress={this.props.progress}
-          strokeWidth={3}
-          trailWidth={3}
-          color="#848484"
-          trailColor="#455a64"
-          svgStyle={{
-            display: "block",
-            width: "100%",
-            height: "20px",
-          }}
-          text={text2}
-        />
-        <button className={classes.button}>
-          <img
-            onClick={(e) => this.handleClick(e)}
-            src={this.props.spreadButtonImage}
-            alt="Country Icon"
-            className={classes.icon}
+  return (
+    <div className={classes.root}>
+      <div className={classes.titleBox}>
+        <Typography className={classes.typography} variant="h4" gutterBottom>
+          {props.spreadButtonName}
+        </Typography>
+        <Typography
+          className={classes.subTitleBoxLeft}
+          variant="body2"
+          gutterBottom
+        >
+          <Avatar
+            variant="square"
+            alt="coins"
+            src="./Images/coins.png"
+            className={classes.coinIcon}
+            style={{ paddingRight: "5px" }}
           />
-        </button>
+          {props.goldForKill.toFixed(0)}
+        </Typography>
+        <Typography
+          className={classes.subTitleBoxRight}
+          variant="body2"
+          gutterBottom
+        >
+          {props.xpPerKill} xp
+        </Typography>
       </div>
-    );
-  }
+      <Line
+        duration={0.1}
+        key={props.current + props.max}
+        progress={props.progress}
+        strokeWidth={3}
+        trailWidth={3}
+        color="#848484"
+        trailColor="#455a64"
+        svgStyle={{
+          display: "block",
+          width: "100%",
+          height: "20px",
+        }}
+        text={text2}
+      />
+      <button className={classes.button}>
+        <img
+          onClick={(event) => {
+            props.onClick();
+            event.persist();
+            setElements((prevArray) => [
+              ...prevArray,
+              <div
+                id="spreadClickAnimation"
+                style={{ top: event.clientY - 25, left: event.clientX - 15 }}
+              >
+                +{prettyNumber(props.spreadPerClick)}
+              </div>,
+            ]);
+            if (elements.length > 200) {
+              setElements([]);
+            }
+          }}
+          src={props.spreadButtonImage}
+          alt="Country Icon"
+          className={classes.icon}
+        />
+      </button>
+      {elements.map((element) => element)}
+    </div>
+  );
 }
-
-export default withStyles(styles)(SpreadButton);

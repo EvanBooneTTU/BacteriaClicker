@@ -3,6 +3,7 @@ import { withStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import { Typography } from "@material-ui/core";
 import { Line } from "@tiaanduplessis/react-progressbar";
+import { prettyNumber } from "../PrettyNumber";
 var numeral = require("numeral");
 
 const styles = (theme) => ({
@@ -63,16 +64,6 @@ const styles = (theme) => ({
 });
 
 class StatsBar extends React.Component {
-  displayNumber(amount) {
-    if (amount >= 1e15) {
-      return numeral(amount).format("0.00e+0");
-    } else if (amount >= 1000) {
-      return numeral(amount).format("0.00a");
-    } else {
-      return amount.toFixed(0);
-    }
-  }
-
   render() {
     const { classes } = this.props;
     let text2 = {
@@ -109,7 +100,7 @@ class StatsBar extends React.Component {
                   margin: "1px 0px 0px 2px",
                 }}
               >
-                {this.displayNumber(this.props.currency)}
+                {prettyNumber(this.props.currency)}
               </h1>
             </div>
             <div
@@ -126,7 +117,7 @@ class StatsBar extends React.Component {
                   margin: "0",
                 }}
               >
-                Income: {this.displayNumber(this.props.income)}
+                Income: {prettyNumber(this.props.income)}
               </h3>
             </div>
           </div>
@@ -150,7 +141,7 @@ class StatsBar extends React.Component {
               </div>
               <div style={{ display: "inline-block" }}>
                 {" "}
-                {this.displayNumber(this.props.growClickPerSecond)}
+                {prettyNumber(this.props.growClickPerSecond)}
               </div>
             </div>
             <div
@@ -172,7 +163,7 @@ class StatsBar extends React.Component {
               </div>
               <div style={{ display: "inline-block" }}>
                 {" "}
-                {this.displayNumber(this.props.spreadPerClick)}
+                {prettyNumber(this.props.spreadPerClick)}
               </div>
             </div>
             <div
@@ -184,9 +175,7 @@ class StatsBar extends React.Component {
                 display: "inline-block",
               }}
             >
-              <div>
-                Growth Factor: {this.displayNumber(this.props.growPerClick)}
-              </div>
+              <div>Growth Factor: {prettyNumber(this.props.growPerClick)}</div>
             </div>
             <div
               style={{
@@ -198,8 +187,7 @@ class StatsBar extends React.Component {
               }}
             >
               <div>
-                Spread Rate:{" "}
-                {this.displayNumber(this.props.spreadClickPerSecond)}
+                Spread Rate: {prettyNumber(this.props.spreadClickPerSecond)}
               </div>
             </div>
           </div>

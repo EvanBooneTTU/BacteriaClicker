@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import "./GrowButton.scss";
-var x = 0;
+import { prettyNumber } from "../PrettyNumber";
 
-const styles = (theme) => ({
+const useStyles = makeStyles({
   titleBox: {
     height: "65px",
     width: "100%",
@@ -37,72 +37,98 @@ const styles = (theme) => ({
     alignItems: "center",
     width: "100%",
   },
+  growIcon: {
+    borderRadius: "50%",
+    width: "245px",
+    height: "245px",
+    boxShadow: "0 0 0 5px #263238",
+    backgroundColor: "#263238",
+    position: "relative",
+    display: "flex",
+    "&:hover": {
+      top: "-3px",
+    },
+    "&:active": {
+      top: "0px",
+    },
+  },
+  growRoot: {
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    minWidth: "300px",
+    minHeight: "350px",
+    height: "47.8vh",
+  },
 });
 
-class GrowButton extends React.Component {
-  buttonClick(event, props) {
-    props.onclick();
-    let growRoot = document.getElementById("growRoot");
-    let newDiv = document.createElement("div");
-    newDiv.innerText = "+1.0";
-    newDiv.setAttribute("id", "x" + x++);
-    newDiv.style.top = event.clientY + "px";
-    newDiv.style.left = event.clientX - 10 + "px";
-    growRoot.appendChild(newDiv);
-  }
+export default function GrowButton(props) {
+  const classes = useStyles();
 
-  render() {
-    const { classes } = this.props;
+  let [elements, setElements] = useState([]);
 
-    let text2 = {
-      value: this.props.current.toFixed(0) + " / " + this.props.max + " filler",
-      style: {
-        color: "white",
-        float: "right",
-        padding: "0 10px 0 0",
-        margin: 0,
-        transform: {
-          prefix: true,
-          value: "translate(0%, -100%)",
-        },
+  let text2 = {
+    value: props.current.toFixed(0) + " / " + props.max + " filler",
+    style: {
+      color: "white",
+      float: "right",
+      padding: "0 10px 0 0",
+      margin: 0,
+      transform: {
+        prefix: true,
+        value: "translate(0%, -100%)",
       },
-    };
+    },
+  };
 
-    return (
-      <div id="growRoot">
-        <div className={classes.titleBox}>
-          <Typography className={classes.typography} variant="h4" gutterBottom>
-            {this.props.total}
-            <div style={{ all: "unset", color: "#adb1b4" }}> Grows</div>
-          </Typography>
-        </div>
-        <Line
-          duration={0.1}
-          easing="easeIn"
-          key={this.props.current}
-          progress={this.props.progress}
-          strokeWidth={3}
-          containerClassName={"progressbar"}
-          color={"#848484"}
-          trailColor="#455a64"
-          svgStyle={{
-            display: "block",
-            width: "100%",
-            height: "20px",
-          }}
-          text={text2}
-        />
-        <button className={classes.button}>
-          <img
-            onClick={(e) => this.buttonClick(e, this.props)}
-            id="growIcon"
-            src="./Images/Plague_Icon_3.png"
-            alt="Dummy growIcon"
-          />
-        </button>
+  return (
+    <div className={classes.growRoot}>
+      <div className={classes.titleBox}>
+        <Typography className={classes.typography} variant="h4" gutterBottom>
+          {props.total}
+          <div style={{ all: "unset", color: "#adb1b4" }}> Grows</div>
+        </Typography>
       </div>
-    );
-  }
+      <Line
+        duration={0.1}
+        easing="easeIn"
+        key={props.current}
+        progress={props.progress}
+        strokeWidth={3}
+        containerClassName={"progressbar"}
+        color={"#848484"}
+        trailColor="#455a64"
+        svgStyle={{
+          display: "block",
+          width: "100%",
+          height: "20px",
+        }}
+        text={text2}
+      />
+      <button className={classes.button}>
+        <img
+          onClick={(event) => {
+            props.onClick();
+            event.persist();
+            setElements((prevArray) => [
+              ...prevArray,
+              <div
+                id="growClickAnimation"
+                style={{ top: event.clientY - 25, left: event.clientX - 15 }}
+              >
+                +{prettyNumber(props.growPerClick)}
+              </div>,
+            ]);
+            if (elements.length > 200) {
+              setElements([]);
+            }
+          }}
+          className={classes.growIcon}
+          src="./Images/Plague_Icon_3.png"
+          alt="Dummy growIcon"
+        />
+      </button>
+      {elements.map((element) => element)}
+    </div>
+  );
 }
-
-export default withStyles(styles)(GrowButton);

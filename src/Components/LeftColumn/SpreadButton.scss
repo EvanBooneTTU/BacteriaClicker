@@ -1,17 +1,17 @@
-#growClickAnimation {
+#spreadClickAnimation {
   width: 25px;
   height: 25px;
   position: absolute;
   color: white;
   font-weight: bold;
-  animation: growGoUp 1s forwards linear;
-  -moz-animation: growGoUp 1s forwards linear;
-  -webkit-animation: growGoUp 1s forwards linear;
-  -o-animation: growGoUp 1s forwards linear;
-  -ms-animation: growGoUp 1s forwards linear;
+  animation: spreadGoUp 1s forwards linear;
+  -moz-animation: spreadGoUp 1s forwards linear;
+  -webkit-animation: spreadGoUp 1s forwards linear;
+  -o-animation: spreadGoUp 1s forwards linear;
+  -ms-animation: spreadGoUp 1s forwards linear;
 }
 
-@-moz-keyframes growGoUp {
+@-moz-keyframes spreadGoUp {
   0% {
     opacity: 1;
   }
@@ -20,17 +20,17 @@
     opacity: 0;
   }
 }
-@keyframes growGoUp {
+@keyframes spreadGoUp {
   0% {
     opacity: 1;
   }
   100% {
-    top: 0px;
+    top: 60vh;
     opacity: 0;
   }
 }
 
-@-webkit-keyframes growGoUp {
+@-webkit-keyframes spreadGoUp {
   0% {
     opacity: 1;
   }
@@ -39,7 +39,7 @@
     opacity: 0;
   }
 }
-@-o-keyframes growGoUp {
+@-o-keyframes spreadGoUp {
   0% {
     opacity: 1;
   }
@@ -48,7 +48,7 @@
     opacity: 0;
   }
 }
-@-ms-keyframes growGoUp {
+@-ms-keyframes spreadGoUp {
   0% {
     opacity: 1;
   }

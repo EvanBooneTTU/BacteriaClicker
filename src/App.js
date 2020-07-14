@@ -332,18 +332,20 @@ class App extends React.Component {
           <Grid item container xs={4} direction="row" className={classes.test}>
             <Grid container item>
               <GrowButton
-                onclick={this.growButtonClick}
+                onClick={this.growButtonClick}
                 progress={this.state.growButtonProgress}
                 max={this.state.growMaxValue}
                 current={this.state.growCurrentValue}
                 total={this.state.totalGrows}
+                growPerClick={this.state.growPerClick}
               />
               <SpreadButton
-                onclick={this.spreadButtonClick}
+                onClick={this.spreadButtonClick}
                 progress={this.state.spreadButtonProgress}
                 max={this.state.spreadMaxValue}
                 current={this.state.spreadCurrentValue}
                 total={this.state.totalSpreads}
+                spreadPerClick={this.state.spreadPerClick}
                 goldForKill={gameData[this.state.playerLevel - 1].goldPerKill}
                 xpPerKill={gameData[this.state.playerLevel - 1].xpPerKill}
                 spreadButtonImage={
