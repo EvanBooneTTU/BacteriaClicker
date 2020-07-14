@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import Avatar from "@material-ui/core/Avatar";
-import { prettyNumber } from "../PrettyNumber";
+import { prettyNumber, randomNumber } from "../PrettyNumber";
 import "./SpreadButton.scss";
 
 const useStyles = makeStyles({
@@ -143,7 +143,10 @@ export default function SpreadButton(props) {
               ...prevArray,
               <div
                 id="spreadClickAnimation"
-                style={{ top: event.clientY - 25, left: event.clientX - 15 }}
+                style={{
+                  top: event.clientY - 25,
+                  left: event.clientX - 15 + randomNumber(-7, 7),
+                }}
               >
                 +{prettyNumber(props.spreadPerClick)}
               </div>,

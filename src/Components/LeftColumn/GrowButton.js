@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import "./GrowButton.scss";
-import { prettyNumber } from "../PrettyNumber";
+import { prettyNumber, randomNumber } from "../PrettyNumber";
 
 const useStyles = makeStyles({
   titleBox: {
@@ -114,7 +114,10 @@ export default function GrowButton(props) {
               ...prevArray,
               <div
                 id="growClickAnimation"
-                style={{ top: event.clientY - 25, left: event.clientX - 15 }}
+                style={{
+                  top: event.clientY - 25,
+                  left: event.clientX - 15 + randomNumber(-7, 7),
+                }}
               >
                 +{prettyNumber(props.growPerClick)}
               </div>,
