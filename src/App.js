@@ -349,7 +349,7 @@ class App extends React.Component {
       <div className={classes.root}>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <Header />
+            <Header saveGame={this.saveGame} />
           </Grid>
           <Grid item container xs={4} direction="row" className={classes.test}>
             <Grid container item>

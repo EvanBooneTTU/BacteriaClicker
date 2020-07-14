@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Header() {
+export default function Header(props) {
   const classes = useStyles();
 
   return (
@@ -44,7 +44,11 @@ export default function Header() {
           <Button className={classes.buttonColors}>Stats</Button>
           <Button className={classes.buttonColors}>Other</Button>
           <Button className={classes.buttonColors}>Help</Button>
-          <Button className={classes.buttonColors} startIcon={<SaveIcon />}>
+          <Button
+            onClick={props.saveGame}
+            className={classes.buttonColors}
+            startIcon={<SaveIcon />}
+          >
             Save
           </Button>
         </ButtonGroup>
