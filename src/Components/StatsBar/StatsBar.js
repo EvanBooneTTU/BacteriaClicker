@@ -4,11 +4,12 @@ import Avatar from "@material-ui/core/Avatar";
 import { Typography } from "@material-ui/core";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import { prettyNumber } from "../PrettyNumber";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const styles = (theme) => ({
   left: {
     width: "calc(100% - 327px)",
-    minWidth: "300px",
+    minWidth: "350px",
     height: "65px",
     color: "white",
     backgroundColor: "#263238",
@@ -60,7 +61,23 @@ const styles = (theme) => ({
     width: "calc(100% - 65px)",
     display: "flex",
   },
+  incomeCoinIcon: {
+    height: "15px",
+    width: "15px",
+    paddingRight: "3px",
+  },
 });
+
+const StatToolTip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: "#171C1E",
+    color: "#86806C",
+    fontSize: 13,
+  },
+  arrow: {
+    color: "#171C1E",
+  },
+}))(Tooltip);
 
 class StatsBar extends React.Component {
   render() {
@@ -116,7 +133,13 @@ class StatsBar extends React.Component {
                   margin: "0",
                 }}
               >
-                Income: {prettyNumber(this.props.income)}
+                Income{" "}
+                <img
+                  alt="coins"
+                  src="./Images/coins.png"
+                  className={classes.incomeCoinIcon}
+                />
+                {prettyNumber(this.props.income)}
               </h3>
             </div>
           </div>
@@ -129,15 +152,21 @@ class StatsBar extends React.Component {
                 display: "inline-block",
               }}
             >
-              <div
-                style={{
-                  display: "inline-block",
-                  width: "103px",
-                  textAlign: "right",
-                }}
+              <StatToolTip
+                arrow
+                title={"Grow Clicks per Second"}
+                placement="left"
               >
-                Grow Rate:
-              </div>
+                <div
+                  style={{
+                    display: "inline-block",
+                    width: "103px",
+                    textAlign: "right",
+                  }}
+                >
+                  Grow Rate:
+                </div>
+              </StatToolTip>
               <div style={{ display: "inline-block" }}>
                 {" "}
                 {prettyNumber(this.props.growClickPerSecond)}
@@ -151,20 +180,27 @@ class StatsBar extends React.Component {
                 display: "inline-block",
               }}
             >
-              <div
-                style={{
-                  display: "inline-block",
-                  width: "89px",
-                  textAlign: "right",
-                }}
+              <StatToolTip
+                arrow
+                title={"Spread Damage Per Click"}
+                placement="left"
               >
-                Infectability:
-              </div>
+                <div
+                  style={{
+                    display: "inline-block",
+                    width: "89px",
+                    textAlign: "right",
+                  }}
+                >
+                  Infectability:
+                </div>
+              </StatToolTip>
               <div style={{ display: "inline-block" }}>
                 {" "}
                 {prettyNumber(this.props.spreadPerClick)}
               </div>
             </div>
+
             <div
               style={{
                 width: "50%",
@@ -174,8 +210,17 @@ class StatsBar extends React.Component {
                 display: "inline-block",
               }}
             >
-              <div>Growth Factor: {prettyNumber(this.props.growPerClick)}</div>
+              <StatToolTip
+                arrow
+                title={"Grow Increase Per Click"}
+                placement="left"
+              >
+                <div>
+                  Growth Factor: {prettyNumber(this.props.growPerClick)}
+                </div>
+              </StatToolTip>
             </div>
+
             <div
               style={{
                 width: "50%",
@@ -185,9 +230,15 @@ class StatsBar extends React.Component {
                 display: "inline-block",
               }}
             >
-              <div>
-                Spread Rate: {prettyNumber(this.props.spreadClickPerSecond)}
-              </div>
+              <StatToolTip
+                arrow
+                title={"Spread Click Per Second"}
+                placement="left"
+              >
+                <div>
+                  Spread Rate: {prettyNumber(this.props.spreadClickPerSecond)}
+                </div>
+              </StatToolTip>
             </div>
           </div>
         </div>
@@ -197,25 +248,27 @@ class StatsBar extends React.Component {
             {this.props.playerLevel}
           </Typography>
         </div>
-        <div className={classes.bottom}>
-          <Line
-            duration={0.1}
-            easing="easeIn"
-            key={this.props.currentXp}
-            progress={this.props.xpProgress}
-            strokeWidth={3}
-            containerClassName={"progressbar"}
-            color={"#848484"}
-            trailColor="#455a64"
-            svgStyle={{
-              display: "block",
-              width: "calc(100% - 1px)",
-              height: "20px",
-              borderLeft: "1px solid #171c1e",
-            }}
-            text={text2}
-          />
-        </div>
+        <StatToolTip arrow title={"Experience for next level"} placement="top">
+          <div className={classes.bottom}>
+            <Line
+              duration={0.1}
+              easing="easeIn"
+              key={this.props.currentXp}
+              progress={this.props.xpProgress}
+              strokeWidth={3}
+              containerClassName={"progressbar"}
+              color={"#848484"}
+              trailColor="#455a64"
+              svgStyle={{
+                display: "block",
+                width: "calc(100% - 1px)",
+                height: "20px",
+                borderLeft: "1px solid #171c1e",
+              }}
+              text={text2}
+            />
+          </div>
+        </StatToolTip>
       </div>
     );
   }

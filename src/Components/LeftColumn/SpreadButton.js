@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import Avatar from "@material-ui/core/Avatar";
 import { prettyNumber, randomNumber } from "../PrettyNumber";
 import "./SpreadButton.scss";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles({
   titleBox: {
@@ -73,6 +74,17 @@ const useStyles = makeStyles({
   },
 });
 
+const StatToolTip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: "#171C1E",
+    color: "#86806C",
+    fontSize: 13,
+  },
+  arrow: {
+    color: "#171C1E",
+  },
+}))(Tooltip);
+
 export default function SpreadButton(props) {
   const classes = useStyles();
 
@@ -98,27 +110,31 @@ export default function SpreadButton(props) {
         <Typography className={classes.typography} variant="h4" gutterBottom>
           {props.spreadButtonName}
         </Typography>
-        <Typography
-          className={classes.subTitleBoxLeft}
-          variant="body2"
-          gutterBottom
-        >
-          <Avatar
-            variant="square"
-            alt="coins"
-            src="./Images/coins.png"
-            className={classes.coinIcon}
-            style={{ paddingRight: "5px" }}
-          />
-          {props.goldForKill.toFixed(0)}
-        </Typography>
-        <Typography
-          className={classes.subTitleBoxRight}
-          variant="body2"
-          gutterBottom
-        >
-          {props.xpPerKill} xp
-        </Typography>
+        <StatToolTip arrow title={"Gold on kill."} placement="right">
+          <Typography
+            className={classes.subTitleBoxLeft}
+            variant="body2"
+            gutterBottom
+          >
+            <Avatar
+              variant="square"
+              alt="coins"
+              src="./Images/coins.png"
+              className={classes.coinIcon}
+              style={{ paddingRight: "5px" }}
+            />
+            {props.goldForKill.toFixed(0)}
+          </Typography>
+        </StatToolTip>
+        <StatToolTip arrow title={"Experience on kill."} placement="left">
+          <Typography
+            className={classes.subTitleBoxRight}
+            variant="body2"
+            gutterBottom
+          >
+            {props.xpPerKill} xp
+          </Typography>
+        </StatToolTip>
       </div>
       <Line
         duration={0.1}

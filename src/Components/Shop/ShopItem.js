@@ -62,7 +62,7 @@ const styles = (theme) => ({
 const ItemTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: "#171C1E",
-    color: "white",
+    color: "#86806C",
     fontSize: 14,
   },
   arrow: {
@@ -73,7 +73,7 @@ const ItemTooltip = withStyles((theme) => ({
 const MultiBuyTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: "#263238",
-    color: "white",
+    color: "#86806C",
     fontSize: 10,
     width: "62px",
     height: "16px",

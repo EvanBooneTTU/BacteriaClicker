@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import "./GrowButton.scss";
 import { prettyNumber, randomNumber } from "../PrettyNumber";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles({
   titleBox: {
@@ -63,13 +64,25 @@ const useStyles = makeStyles({
   },
 });
 
+const StatToolTip = withStyles((theme) => ({
+  tooltip: {
+    backgroundColor: "#171C1E",
+    color: "#86806C",
+    fontSize: 13,
+    width: "244px",
+  },
+  arrow: {
+    color: "#171C1E",
+  },
+}))(Tooltip);
+
 export default function GrowButton(props) {
   const classes = useStyles();
 
   let [elements, setElements] = useState([]);
 
   let text2 = {
-    value: props.current.toFixed(0) + " / " + props.max + " filler",
+    value: props.current.toFixed(0) + " / " + props.max + " Nutrients",
     style: {
       color: "white",
       float: "right",
@@ -87,7 +100,15 @@ export default function GrowButton(props) {
       <div className={classes.titleBox}>
         <Typography className={classes.typography} variant="h4" gutterBottom>
           {props.total}
-          <div style={{ all: "unset", color: "#adb1b4" }}> Grows</div>
+          <StatToolTip
+            arrow
+            title={
+              "Collect nutrients to grow colonies. Colonies grant 2 extra growth factor each."
+            }
+            placement="right"
+          >
+            <div style={{ all: "unset", color: "#adb1b4" }}> Colonies</div>
+          </StatToolTip>
         </Typography>
       </div>
       <Line
