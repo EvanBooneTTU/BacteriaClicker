@@ -47,6 +47,7 @@ const useStyles = makeStyles({
     display: "flex",
     "&:hover": {
       top: "-3px",
+      cursor: "pointer",
     },
     "&:active": {
       top: "0px",
@@ -92,7 +93,7 @@ export default function GrowButton(props) {
       <Line
         duration={0.1}
         easing="easeIn"
-        key={props.current}
+        key={props.current + props.max}
         progress={props.progress}
         strokeWidth={3}
         containerClassName={"progressbar"}

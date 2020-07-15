@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import Avatar from "@material-ui/core/Avatar";
 import { prettyNumber, randomNumber } from "../PrettyNumber";
@@ -54,6 +54,7 @@ const useStyles = makeStyles({
     display: "flex",
     "&:hover": {
       top: "-3px",
+      cursor: "pointer",
     },
     "&:active": {
       top: "0px",
@@ -78,7 +79,7 @@ export default function SpreadButton(props) {
   let [elements, setElements] = useState([]);
 
   let text2 = {
-    value: props.current.toFixed(0) + " / " + props.max + " hp",
+    value: (props.max - props.current).toFixed(0) + " / " + props.max + " hp",
     style: {
       color: "white",
       float: "right",
@@ -148,7 +149,7 @@ export default function SpreadButton(props) {
                   left: event.clientX - 15 + randomNumber(-7, 7),
                 }}
               >
-                +{prettyNumber(props.spreadPerClick)}
+                -{prettyNumber(props.spreadPerClick)}
               </div>,
             ]);
             if (elements.length > 200) {

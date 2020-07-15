@@ -31,6 +31,7 @@ class App extends React.Component {
     this.growButtonClick = this.growButtonClick.bind(this);
     this.buyItem = this.buyItem.bind(this);
     this.saveGame = this.saveGame.bind(this);
+    this.initialItemPurchaseCost = this.initialItemPurchaseCost.bind(this);
 
     this.state = {
       currency: 1000000000,
@@ -171,19 +172,7 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    //Grabs saved values in local storage
-    this.setState((prevState) => {
-      let objectCopy = Object.assign({}, prevState);
-
-      Object.keys(localStorage).forEach((key, index) => {
-        objectCopy[key] = JSON.parse(localStorage.getItem(key));
-      });
-
-      return objectCopy;
-    });
-
-    //Sets the purchase costs of all items
+  initialItemPurchaseCost() {
     this.setState((prevState) => {
       let objectCopy = Object.assign({}, prevState);
       objectCopy.shopData.forEach((item) => {
@@ -192,6 +181,7 @@ class App extends React.Component {
           1,
           item.index
         );
+        console.log("purchase cost: " + objectCopy.shopData[item.index].price);
         objectCopy.shopData[item.index].price10 = this.calculatePurchaseCost(
           10,
           item.index
@@ -207,6 +197,24 @@ class App extends React.Component {
       });
       return objectCopy;
     });
+  }
+
+  componentDidMount() {
+    //Grabs saved values in local storage
+    this.setState(
+      (prevState) => {
+        let objectCopy = Object.assign({}, prevState);
+
+        Object.keys(localStorage).forEach((key, index) => {
+          objectCopy[key] = JSON.parse(localStorage.getItem(key));
+        });
+
+        return objectCopy;
+      },
+      () => {
+        this.initialItemPurchaseCost();
+      }
+    );
 
     this.intervalID = setInterval(() => this.passiveButtonClicks(), 1000);
     this.intervalID = setInterval(() => this.saveGame(), 60000);
@@ -363,7 +371,7 @@ class App extends React.Component {
               />
               <SpreadButton
                 onClick={this.spreadButtonClick}
-                progress={this.state.spreadButtonProgress}
+                progress={1 - this.state.spreadButtonProgress}
                 max={this.state.spreadMaxValue}
                 current={this.state.spreadCurrentValue}
                 total={this.state.totalSpreads}

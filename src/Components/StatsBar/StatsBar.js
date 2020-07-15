@@ -4,7 +4,6 @@ import Avatar from "@material-ui/core/Avatar";
 import { Typography } from "@material-ui/core";
 import { Line } from "@tiaanduplessis/react-progressbar";
 import { prettyNumber } from "../PrettyNumber";
-var numeral = require("numeral");
 
 const styles = (theme) => ({
   left: {
