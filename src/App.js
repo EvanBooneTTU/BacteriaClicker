@@ -36,7 +36,7 @@ class App extends React.Component {
     this.state = {
       currency: 1000000000,
       growPerClick: 1, //Is == to infectability DONE
-      spreadPerClick: 100, //Is == to growthFactor DONE
+      spreadPerClick: 5, //Is == to growthFactor DONE
       growClickPerSecond: 0, //DONE
       spreadClickPerSecond: 0, //DONE
       income: 0,
