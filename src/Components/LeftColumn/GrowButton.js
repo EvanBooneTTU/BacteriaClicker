@@ -82,7 +82,11 @@ export default function GrowButton(props) {
   let [elements, setElements] = useState([]);
 
   let text2 = {
-    value: props.current.toFixed(0) + " / " + props.max + " Nutrients",
+    value:
+      prettyNumber(props.current) +
+      " / " +
+      prettyNumber(props.max) +
+      " Nutrients",
     style: {
       color: "white",
       float: "right",
@@ -112,7 +116,7 @@ export default function GrowButton(props) {
         </Typography>
       </div>
       <Line
-        duration={0.1}
+        duration={0.000000001}
         easing="easeIn"
         key={props.current + props.max}
         progress={props.progress}

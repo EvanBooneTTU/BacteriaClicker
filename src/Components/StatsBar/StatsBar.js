@@ -251,7 +251,7 @@ class StatsBar extends React.Component {
         <StatToolTip arrow title={"Experience for next level"} placement="top">
           <div className={classes.bottom}>
             <Line
-              duration={0.1}
+              duration={0.000000001}
               easing="easeIn"
               key={this.props.currentXp}
               progress={this.props.xpProgress}

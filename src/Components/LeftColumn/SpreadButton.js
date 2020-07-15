@@ -91,7 +91,11 @@ export default function SpreadButton(props) {
   let [elements, setElements] = useState([]);
 
   let text2 = {
-    value: (props.max - props.current).toFixed(0) + " / " + props.max + " hp",
+    value:
+      prettyNumber(props.max - props.current) +
+      " / " +
+      prettyNumber(props.max) +
+      " hp",
     style: {
       color: "white",
       float: "right",
@@ -137,7 +141,7 @@ export default function SpreadButton(props) {
         </StatToolTip>
       </div>
       <Line
-        duration={0.1}
+        duration={0.000000001}
         key={props.current + props.max}
         progress={props.progress}
         strokeWidth={3}

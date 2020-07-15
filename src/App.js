@@ -32,6 +32,7 @@ class App extends React.Component {
     this.buyItem = this.buyItem.bind(this);
     this.saveGame = this.saveGame.bind(this);
     this.initialItemPurchaseCost = this.initialItemPurchaseCost.bind(this);
+    this.activateSpell = this.activateSpell.bind(this);
 
     this.state = {
       currency: 1000000000,
@@ -54,6 +55,7 @@ class App extends React.Component {
       currentXp: 0,
       xpToLevelUp: 1000,
       time: 0,
+      autoSave: false,
     };
   }
 
@@ -111,7 +113,16 @@ class App extends React.Component {
     this.setState((prevState) => {
       //Spread Button Click
       let objectCopy = Object.assign({}, prevState);
-      objectCopy.time += 1000;
+      //also sets time due to occuring every 1 second
+      objectCopy.time += 1;
+
+      objectCopy.spellData.forEach((spell) => {
+        spell.cooldownTimer -= 1;
+        if (spell.cooldownTimer <= 0) {
+          spell.onCooldown = false;
+        }
+      });
+
       objectCopy.spreadCurrentValue =
         prevState.spreadCurrentValue +
         prevState.spreadPerClick * prevState.spreadClickPerSecond;
@@ -217,7 +228,10 @@ class App extends React.Component {
     );
 
     this.intervalID = setInterval(() => this.passiveButtonClicks(), 1000);
-    this.intervalID = setInterval(() => this.saveGame(), 60000);
+    if (this.state.autoSave) {
+      this.intervalID = setInterval(() => this.saveGame(), 60000);
+    }
+
     this.intervalID = setInterval(() => this.passiveIncome(), 250);
   }
 
@@ -302,7 +316,6 @@ class App extends React.Component {
     switch (index) {
       case 0:
         //spell logic
-        console.log("Spell 1 Click");
         break;
       case 1:
         //spell logic
@@ -326,6 +339,13 @@ class App extends React.Component {
       default:
         break;
     }
+    this.setState((prevState) => {
+      let objectCopy = Object.assign({}, prevState);
+      objectCopy.spellData[index].cooldownTimer =
+        objectCopy.spellData[index].cooldown;
+      objectCopy.spellData[index].onCooldown = true;
+      return objectCopy;
+    });
   }
 
   updateItemBuffs(amount, index) {
