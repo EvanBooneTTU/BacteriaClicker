@@ -251,6 +251,7 @@ class ShopItem extends React.Component {
                     className={classes.inline}
                     style={{
                       color: this.props.growthFactor === 0 ? "gray" : "white",
+                      paddingLeft: "3px",
                     }}
                   >
                     Growth Factor {this.props.growthFactor}
@@ -263,6 +264,7 @@ class ShopItem extends React.Component {
                     style={{
                       color:
                         this.props.growthPerSecond === 0 ? "gray" : "white",
+                      paddingLeft: "25px",
                     }}
                   >
                     Grow Rate {this.props.growthPerSecond}
@@ -274,6 +276,7 @@ class ShopItem extends React.Component {
                     className={classes.inline}
                     style={{
                       color: this.props.infectability === 0 ? "gray" : "white",
+                      paddingLeft: "17px",
                     }}
                   >
                     Infectability {this.props.infectability}
@@ -286,6 +289,7 @@ class ShopItem extends React.Component {
                     style={{
                       color:
                         this.props.spreadPerSecond === 0 ? "gray" : "white",
+                      paddingLeft: "14px",
                     }}
                   >
                     Spread Rate {this.props.spreadPerSecond}
@@ -297,6 +301,7 @@ class ShopItem extends React.Component {
                     className={classes.inline}
                     style={{
                       color: this.props.income === 0 ? "gray" : "white",
+                      paddingLeft: "41px",
                     }}
                   >
                     Income {this.props.income}
