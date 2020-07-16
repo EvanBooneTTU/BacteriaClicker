@@ -34,6 +34,7 @@ class App extends React.Component {
     this.initialItemPurchaseCost = this.initialItemPurchaseCost.bind(this);
     this.activateSpell = this.activateSpell.bind(this);
     this.checkLevelUp = this.checkLevelUp.bind(this);
+    this.newGame = this.newGame.bind(this);
 
     this.state = {
       currency: 1000000000,
@@ -58,6 +59,7 @@ class App extends React.Component {
       time: 0,
       autoSave: false,
       totalXp: 0,
+      inititialStateValues: 0,
     };
   }
 
@@ -83,6 +85,10 @@ class App extends React.Component {
       return objectCopy;
     });
     this.checkLevelUp();
+  }
+
+  newGame() {
+    this.setState((prevState) => prevState.inititialStateValues);
   }
 
   growButtonClick() {
@@ -237,6 +243,14 @@ class App extends React.Component {
         this.initialItemPurchaseCost();
       }
     );
+
+    if (this.state.time < 5) {
+      this.setState((prevState) => {
+        let objectCopy = Object.assign({}, prevState);
+        objectCopy.inititialStateValues = objectCopy;
+        return objectCopy;
+      });
+    }
 
     this.intervalID = setInterval(() => this.passiveButtonClicks(), 1000);
     if (this.state.autoSave) {
