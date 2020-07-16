@@ -4,6 +4,8 @@ export function prettyNumber(amount) {
     return numeral(amount).format("0.00e+0");
   } else if (amount >= 1000) {
     return numeral(amount).format("0.00a");
+  } else if (typeof amount == "string") {
+    return "";
   } else {
     return amount.toFixed(0);
   }

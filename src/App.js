@@ -33,6 +33,7 @@ class App extends React.Component {
     this.saveGame = this.saveGame.bind(this);
     this.initialItemPurchaseCost = this.initialItemPurchaseCost.bind(this);
     this.activateSpell = this.activateSpell.bind(this);
+    this.checkLevelUp = this.checkLevelUp.bind(this);
 
     this.state = {
       currency: 1000000000,
@@ -56,6 +57,7 @@ class App extends React.Component {
       xpToLevelUp: 1000,
       time: 0,
       autoSave: false,
+      totalXp: 0,
     };
   }
 
@@ -73,13 +75,14 @@ class App extends React.Component {
         objectCopy.spreadButtonProgress = 0;
         objectCopy.spreadCurrentValue = 0;
         objectCopy.currentXp += gameData[prevState.playerLevel - 1].xpPerKill;
+        objectCopy.totalXp += gameData[prevState.playerLevel - 1].xpPerKill;
         objectCopy.spreadMaxValue +=
           gameData[prevState.playerLevel - 1].hpIncreasePerKill;
         objectCopy.currency += gameData[prevState.playerLevel - 1].goldPerKill;
       }
       return objectCopy;
     });
-    console.log("current xp: " + this.state.currentXp);
+    this.checkLevelUp();
   }
 
   growButtonClick() {
@@ -118,10 +121,15 @@ class App extends React.Component {
 
       objectCopy.spellData.forEach((spell) => {
         spell.cooldownTimer -= 1;
+        spell.activeTime -= 1;
         if (spell.cooldownTimer <= 0) {
           spell.onCooldown = false;
         }
+        if (spell.activeTime <= 0) {
+          spell.active = false;
+        }
       });
+      objectCopy.spellData[0].spellDamage = objectCopy.totalXp / 10;
 
       objectCopy.spreadCurrentValue =
         prevState.spreadCurrentValue +
@@ -315,32 +323,103 @@ class App extends React.Component {
   activateSpell(index) {
     switch (index) {
       case 0:
-        //spell logic
+        this.setState((prevState) => {
+          let objectCopy = Object.assign({}, prevState);
+          objectCopy.spreadCurrentValue += objectCopy.spellData[0].spellDamage;
+          objectCopy.spreadButtonProgress =
+            objectCopy.spreadCurrentValue / objectCopy.spreadMaxValue;
+          if (objectCopy.spreadButtonProgress >= 1.0) {
+            objectCopy.totalSpreads++;
+            objectCopy.spreadButtonProgress = 0;
+            objectCopy.spreadCurrentValue = 0;
+            objectCopy.currentXp +=
+              gameData[prevState.playerLevel - 1].xpPerKill;
+            objectCopy.totalXp += gameData[prevState.playerLevel - 1].xpPerKill;
+            objectCopy.spreadMaxValue +=
+              gameData[prevState.playerLevel - 1].hpIncreasePerKill;
+            objectCopy.currency +=
+              gameData[prevState.playerLevel - 1].goldPerKill;
+          }
+          return objectCopy;
+        });
+        this.checkLevelUp();
         break;
       case 1:
-        //spell logic
-        console.log("Spell 2 Click");
+        let newSpellData1 = [...this.state.spellData];
+        newSpellData1[index].activeTime = 10;
+        this.setState((prevState) => ({
+          growPerClick: this.state.growPerClick * 2,
+          spellData: newSpellData1,
+        }));
+        setTimeout(
+          function () {
+            this.setState({
+              growPerClick: this.state.growPerClick / 2,
+            });
+          }.bind(this),
+          10000
+        );
+
         break;
       case 2:
-        //spell logic
+        let newSpellData2 = [...this.state.spellData];
+        newSpellData2[index].activeTime = 7;
+        this.setState({
+          growPerClick: this.state.growPerClick * 5,
+          spellData: newSpellData2,
+        });
+        setTimeout(
+          function () {
+            this.setState({
+              growPerClick: this.state.growPerClick / 5,
+            });
+          }.bind(this),
+          7000
+        );
         break;
       case 3:
-        //spell logic
+        let growsAdded = Math.floor(this.state.totalGrows / 10);
+        this.setState((prevState) => {
+          let objectCopy = Object.assign({}, prevState);
+          objectCopy.totalGrows += growsAdded;
+          objectCopy.spreadPerClick += growsAdded * 2;
+          return objectCopy;
+        });
         break;
       case 4:
-        //spell logic
+        this.setState((prevState) => {
+          let objectCopy = Object.assign({}, prevState);
+          objectCopy.spellData.forEach((spell) => {
+            spell.cooldownTimer = 0;
+            spell.onCooldown = false;
+          });
+          return objectCopy;
+        });
         break;
       case 5:
-        //spell logic
-        break;
-      case 6:
-        //spell logic
+        let newSpellData5 = [...this.state.spellData];
+        newSpellData5[index].activeTime = 10;
+        this.setState({
+          spreadPerClick: this.state.spreadPerClick * 2,
+          spellData: newSpellData5,
+        });
+        setTimeout(
+          function () {
+            this.setState({
+              spreadPerClick: this.state.spreadPerClick / 2,
+            });
+          }.bind(this),
+          10000
+        );
         break;
       default:
         break;
     }
     this.setState((prevState) => {
       let objectCopy = Object.assign({}, prevState);
+      if (index === 1 || index === 2 || index === 5) {
+        objectCopy.spellData[index].active = true;
+      }
       objectCopy.spellData[index].cooldownTimer =
         objectCopy.spellData[index].cooldown;
       objectCopy.spellData[index].onCooldown = true;

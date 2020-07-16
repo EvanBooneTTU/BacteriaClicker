@@ -5,6 +5,7 @@ import LockIcon from "@material-ui/icons/Lock";
 import Tooltip from "@material-ui/core/Tooltip";
 import { Typography } from "@material-ui/core";
 import { Line } from "@tiaanduplessis/react-progressbar";
+import { prettyNumber } from "../PrettyNumber";
 
 const styles = (theme) => ({
   button: {
@@ -66,8 +67,9 @@ class Spell extends React.Component {
                   variant="body2"
                   display="inline"
                   style={{ lineHeight: "1.2", color: "#C58519" }}
+                  key={this.props.spellDamage}
                 >
-                  {this.props.spellDamage}
+                  {prettyNumber(this.props.spellDamage)}
                 </Typography>
                 <Typography
                   display="inline"
@@ -120,6 +122,19 @@ class Spell extends React.Component {
           <Button className={classes.button} disabled>
             <LockIcon style={{ color: "#45494B" }} fontSize="large" />
           </Button>
+        </div>
+      );
+    } else if (this.props.active) {
+      return (
+        <div className={classes.root}>
+          <Button
+            style={{
+              backgroundImage: `url(${this.props.src})`,
+              boxShadow: "0 0 4px 5px red",
+            }}
+            className={classes.button}
+            disabled
+          ></Button>
         </div>
       );
     } else {

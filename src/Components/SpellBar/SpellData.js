@@ -8,12 +8,14 @@ export const spellData = [
     levelToUnlock: 1,
     spellDamage: 0,
     cooldown: 60,
-    cooldownTimer: 60,
-    onCooldown: true,
+    cooldownTimer: 0,
+    onCooldown: false,
     toolTipDescription1: "Deal ",
     toolTipDescription2:
       " damage Instantly. Damage Scales with level and experience.",
     toolTipDescription3: "Kills with this spell grant +20% gold.",
+    activeTime: 0,
+    active: false,
   },
   {
     spellName: "Smite",
@@ -25,10 +27,12 @@ export const spellData = [
     spellDamage: "",
     cooldown: 120,
     cooldownTimer: 0,
-    onCooldown: true,
+    onCooldown: false,
     toolTipDescription1: "+100% chime gathering for 10 seconds.",
     toolTipDescription2: "",
     toolTipDescription3: "",
+    activeTime: 10,
+    active: false,
   },
   {
     spellName: "Smite",
@@ -44,6 +48,8 @@ export const spellData = [
     toolTipDescription1: "5x chimes per click for 7 seconds.",
     toolTipDescription2: "",
     toolTipDescription3: "",
+    activeTime: 7,
+    active: false,
   },
   {
     spellName: "Smite",
@@ -59,6 +65,8 @@ export const spellData = [
     toolTipDescription1: "Increase your current meeps by 10% ",
     toolTipDescription2: "",
     toolTipDescription3: "",
+    activeTime: 0,
+    active: false,
   },
   {
     spellName: "Smite",
@@ -74,6 +82,8 @@ export const spellData = [
     toolTipDescription1: "Reset Cooldowns of all spells.",
     toolTipDescription2: "",
     toolTipDescription3: "",
+    activeTime: 0,
+    active: false,
   },
   {
     spellName: "Smite",
@@ -89,6 +99,8 @@ export const spellData = [
     toolTipDescription1: "+100% damage dealt for 10 seconds.",
     toolTipDescription2: "",
     toolTipDescription3: "",
+    activeTime: 10,
+    active: false,
   },
   {
     spellName: "NoClick",
@@ -104,5 +116,7 @@ export const spellData = [
     toolTipDescription1: "Passively gain an extra 5% gold from kills",
     toolTipDescription2: "",
     toolTipDescription3: "",
+    activeTime: 0,
+    active: false,
   },
 ];

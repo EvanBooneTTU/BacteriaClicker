@@ -40,6 +40,7 @@ class SpellBar extends React.Component {
           toolTipDescription3={spell.toolTipDescription3}
           onCooldown={spell.onCooldown}
           cooldownTimer={spell.cooldownTimer}
+          active={spell.active}
         />
       );
     });
