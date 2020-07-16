@@ -130,6 +130,9 @@ class App extends React.Component {
         }
       });
       objectCopy.spellData[0].spellDamage = objectCopy.totalXp / 10;
+      objectCopy.spellData[3].spellDamage = Math.floor(
+        this.state.totalGrows / 10
+      );
 
       objectCopy.spreadCurrentValue =
         prevState.spreadCurrentValue +
