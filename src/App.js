@@ -37,7 +37,7 @@ class App extends React.Component {
     this.newGame = this.newGame.bind(this);
 
     this.state = {
-      currency: 1000000000,
+      currency: 0,
       growPerClick: 1, //Is == to infectability DONE
       spreadPerClick: 5, //Is == to growthFactor DONE
       growClickPerSecond: 0, //DONE
@@ -60,6 +60,15 @@ class App extends React.Component {
       autoSave: false,
       totalXp: 0,
       inititialStateValues: 0,
+      //Stats values
+      nutrientsCollected: 0,
+      clickedNutrients: 0,
+      growClicks: 0,
+      damageDealt: 0,
+      clickedDamage: 0,
+      spreadClicks: 0,
+      goldEarned: 0,
+      goldSpent: 0,
     };
   }
 
@@ -72,6 +81,9 @@ class App extends React.Component {
         prevState.spreadCurrentValue + prevState.spreadPerClick;
       objectCopy.spreadButtonProgress =
         objectCopy.spreadCurrentValue / objectCopy.spreadMaxValue;
+      objectCopy.damageDealt += prevState.spreadPerClick;
+      objectCopy.clickedDamage += prevState.spreadPerClick;
+      objectCopy.spreadClicks++;
       if (objectCopy.spreadButtonProgress >= 1.0) {
         objectCopy.totalSpreads++;
         objectCopy.spreadButtonProgress = 0;
@@ -81,6 +93,8 @@ class App extends React.Component {
         objectCopy.spreadMaxValue +=
           gameData[prevState.playerLevel - 1].hpIncreasePerKill;
         objectCopy.currency += gameData[prevState.playerLevel - 1].goldPerKill;
+        objectCopy.goldEarned +=
+          gameData[prevState.playerLevel - 1].goldPerKill;
       }
       return objectCopy;
     });
@@ -96,6 +110,9 @@ class App extends React.Component {
       let objectCopy = Object.assign({}, prevState);
       objectCopy.growCurrentValue =
         prevState.growCurrentValue + prevState.growPerClick;
+      objectCopy.nutrientsCollected += prevState.growPerClick;
+      objectCopy.clickedNutrients += prevState.growPerClick;
+      objectCopy.growClicks++;
       objectCopy.growButtonProgress =
         objectCopy.growCurrentValue / objectCopy.growMaxValue;
       if (objectCopy.growButtonProgress >= 1.0) {
@@ -114,6 +131,7 @@ class App extends React.Component {
     this.setState((prevState) => {
       let objectCopy = Object.assign({}, prevState);
       objectCopy.currency = prevState.currency + prevState.income / 4;
+      objectCopy.goldEarned = prevState.currency + prevState.income / 4;
       return objectCopy;
     });
   }
@@ -145,6 +163,8 @@ class App extends React.Component {
         prevState.spreadPerClick * prevState.spreadClickPerSecond;
       objectCopy.spreadButtonProgress =
         objectCopy.spreadCurrentValue / objectCopy.spreadMaxValue;
+      objectCopy.damageDealt +=
+        prevState.spreadPerClick * prevState.spreadClickPerSecond;
       if (objectCopy.spreadButtonProgress >= 1.0) {
         objectCopy.totalSpreads++;
         objectCopy.spreadButtonProgress = 0;
@@ -160,6 +180,8 @@ class App extends React.Component {
         prevState.growPerClick * prevState.growClickPerSecond;
       objectCopy.growButtonProgress =
         objectCopy.growCurrentValue / objectCopy.growMaxValue;
+      objectCopy.nutrientsCollected +=
+        prevState.growPerClick * prevState.growClickPerSecond;
       if (objectCopy.growButtonProgress >= 1.0) {
         objectCopy.totalGrows++;
         objectCopy.growButtonProgress = 0;
@@ -305,6 +327,7 @@ class App extends React.Component {
         let objectCopy = Object.assign({}, prevState);
         //Subtracts item price
         objectCopy.currency = prevState.currency - totalPrice;
+        objectCopy.goldSpent += totalPrice;
         //Increments item price
         console.log(Math.pow(1.15, amount));
         objectCopy.shopData[index].price =
@@ -467,13 +490,43 @@ class App extends React.Component {
     });
   }
 
+  /*
+1. nutrientsCollected
+2. clickedNutrients
+3. growClicks
+4. totalGrows
+5. damageDealt
+6. clickedDamage
+7. spreadClicks
+8. totalSpreads
+9. goldEarned
+10. goldSpent
+11. totalXp
+12. growClicks + spreadClicks
+  */
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.root}>
         <Grid container spacing={0}>
           <Grid item xs={12}>
-            <Header saveGame={this.saveGame} />
+            <Header
+              saveGame={this.saveGame}
+              newGame={this.newGame}
+              nutrientsCollected={this.state.nutrientsCollected}
+              clickedNutrients={this.state.clickedNutrients}
+              growClicks={this.state.growClicks}
+              totalGrows={this.state.totalGrows}
+              damageDealt={this.state.damageDealt}
+              clickedDamage={this.state.clickedDamage}
+              spreadClicks={this.state.spreadClicks}
+              totalSpreads={this.state.totalSpreads}
+              goldEarned={this.state.goldEarned}
+              goldSpent={this.state.goldSpent}
+              totalXp={this.state.totalXp}
+              totalClicks={this.state.growClicks + this.state.spreadClicks}
+            />
           </Grid>
           <Grid item container xs={4} direction="row" className={classes.test}>
             <Grid container item>
