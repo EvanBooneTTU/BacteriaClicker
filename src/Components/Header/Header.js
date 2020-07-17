@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import SaveIcon from "@material-ui/icons/Save";
-import MenuIconDrawer from "./MenuIconDrawer";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
@@ -16,6 +15,8 @@ import MuiDialogContent from "@material-ui/core/DialogContent";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import HelpText from "./HelpText";
 
 const useStyles = makeStyles((theme) => ({
   AppBarRoot: {
@@ -70,7 +71,7 @@ const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.StatRoot} {...other}>
-      <Typography variant="h6">{children}</Typography>
+      <Typography variant="h5">{children}</Typography>
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -101,6 +102,7 @@ export default function Header(props) {
   const classes = useStyles();
   const [modalOpen, modalSetOpen] = React.useState(false);
   const [statOpen, statSetOpen] = React.useState(false);
+  const [helpOpen, setHelpOpen] = React.useState(false);
 
   const modalHandleOpen = () => {
     modalSetOpen(true);
@@ -117,11 +119,27 @@ export default function Header(props) {
     statSetOpen(false);
   };
 
+  const handleHelpOpen = () => {
+    setHelpOpen(true);
+  };
+
+  const handleHelpClose = () => {
+    setHelpOpen(false);
+  };
+
+  const descriptionElementRef = React.useRef(null);
+  React.useEffect(() => {
+    if (helpOpen) {
+      const { current: descriptionElement } = descriptionElementRef;
+      if (descriptionElement !== null) {
+        descriptionElement.focus();
+      }
+    }
+  }, [helpOpen]);
   return (
     <React.Fragment>
       <AppBar className={classes.AppBarRoot} position="static">
         <Toolbar variant="dense">
-          <MenuIconDrawer />
           <Typography variant="h6" className={classes.title}>
             Covid Clicker
           </Typography>
@@ -136,7 +154,9 @@ export default function Header(props) {
             <Button className={classes.buttonColors} onClick={modalHandleOpen}>
               New Game
             </Button>
-            <Button className={classes.buttonColors}>Help</Button>
+            <Button className={classes.buttonColors} onClick={handleHelpOpen}>
+              Help
+            </Button>
             <Button
               onClick={props.saveGame}
               className={classes.buttonColors}
@@ -321,6 +341,35 @@ export default function Header(props) {
             Total Clicks{"   "}
             <div className={classes.statItemAmount}>{props.totalClicks}</div>
           </Typography>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        open={helpOpen}
+        onClose={handleHelpClose}
+        scroll="paper"
+        aria-labelledby="scroll-dialog-title"
+        aria-describedby="scroll-dialog-description"
+        maxWidth="md"
+      >
+        <DialogTitle
+          id="customized-dialog-title"
+          onClose={handleHelpClose}
+          style={{
+            paddingLeft: "455px",
+            color: "white",
+            backgroundColor: "#131313",
+          }}
+        >
+          Help
+        </DialogTitle>
+        <DialogContent dividers={true} style={{ backgroundColor: "#1E272C" }}>
+          <DialogContentText
+            id="scroll-dialog-description"
+            ref={descriptionElementRef}
+            tabIndex={-1}
+          >
+            <HelpText />
+          </DialogContentText>
         </DialogContent>
       </Dialog>
     </React.Fragment>

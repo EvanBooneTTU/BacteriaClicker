@@ -95,6 +95,12 @@ class App extends React.Component {
         objectCopy.currency += gameData[prevState.playerLevel - 1].goldPerKill;
         objectCopy.goldEarned +=
           gameData[prevState.playerLevel - 1].goldPerKill;
+        if (objectCopy.spellData[6].spellUnlocked) {
+          objectCopy.currency +=
+            gameData[prevState.playerLevel - 1].goldPerKill * 0.05;
+          objectCopy.goldEarned +=
+            gameData[prevState.playerLevel - 1].goldPerKill * 0.05;
+        }
       }
       return objectCopy;
     });
