@@ -11,6 +11,7 @@ import { gameData } from "./GameData.js";
 import { withStyles } from "@material-ui/core/styles";
 import SpellBar from "./Components/SpellBar/SpellBar";
 import { spellData } from "./Components/SpellBar/SpellData.js";
+let inititialStateValues;
 
 const styles = (theme) => ({
   test: {
@@ -59,7 +60,6 @@ class App extends React.Component {
       time: 0,
       autoSave: false,
       totalXp: 0,
-      inititialStateValues: 0,
       //Stats values
       nutrientsCollected: 0,
       clickedNutrients: 0,
@@ -102,7 +102,7 @@ class App extends React.Component {
   }
 
   newGame() {
-    this.setState((prevState) => prevState.inititialStateValues);
+    this.setState(inititialStateValues);
   }
 
   growButtonClick() {
@@ -267,11 +267,7 @@ class App extends React.Component {
     );
 
     if (this.state.time < 5) {
-      this.setState((prevState) => {
-        let objectCopy = Object.assign({}, prevState);
-        objectCopy.inititialStateValues = objectCopy;
-        return objectCopy;
-      });
+      inititialStateValues = Object.assign({}, this.state);
     }
 
     this.intervalID = setInterval(() => this.passiveButtonClicks(), 1000);
