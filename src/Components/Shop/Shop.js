@@ -30,6 +30,7 @@ class Shop extends React.Component {
           itemName={item.itemName}
           buyItem={props.buyItem}
           id={item.id}
+          index={item.index}
           price={item.price}
           price10={item.price10}
           price100={item.price100}
@@ -37,6 +38,10 @@ class Shop extends React.Component {
           amount={item.amount}
           itemUnlocked={item.itemUnlocked}
           levelToUnlock={item.levelToUnlock}
+          upgrades={item.upgrades}
+          upgradeStats={item.upgradeStats}
+          displayUpgrade={item.displayUpgrade}
+          upgradeClick={props.itemUpgrade}
         />
       );
     });

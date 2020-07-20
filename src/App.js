@@ -36,9 +36,11 @@ class App extends React.Component {
     this.activateSpell = this.activateSpell.bind(this);
     this.checkLevelUp = this.checkLevelUp.bind(this);
     this.newGame = this.newGame.bind(this);
+    this.itemUpgrade = this.itemUpgrade.bind(this);
+    this.updateItemBuffs = this.updateItemBuffs.bind(this);
 
     this.state = {
-      currency: 0,
+      currency: 50000000,
       growPerClick: 1, //Is == to infectability DONE
       spreadPerClick: 5, //Is == to growthFactor DONE
       growClickPerSecond: 0, //DONE
@@ -358,7 +360,7 @@ class App extends React.Component {
         );
         return objectCopy;
       });
-      this.updateItemBuffs(amount, index);
+      this.updateItemBuffs();
     }
   }
 
@@ -387,37 +389,54 @@ class App extends React.Component {
         this.checkLevelUp();
         break;
       case 1:
-        let newSpellData1 = [...this.state.spellData];
-        newSpellData1[index].activeTime = 10;
-        this.setState((prevState) => ({
-          growPerClick: this.state.growPerClick * 2,
-          spellData: newSpellData1,
-        }));
+        this.setState((prevState) => {
+          let objectCopy = Object.assign({}, prevState);
+          objectCopy.spellData[index].activeTime = 10;
+          objectCopy.shopData.forEach((item) => {
+            item.growthFactor *= 2;
+          });
+          return objectCopy;
+        });
+        this.updateItemBuffs();
         setTimeout(
           function () {
-            this.setState({
-              growPerClick: this.state.growPerClick / 2,
+            this.setState((prevState) => {
+              let objectCopy = Object.assign({}, prevState);
+              objectCopy.shopData.forEach((item) => {
+                item.growthFactor /= 2;
+              });
+              return objectCopy;
             });
+            this.updateItemBuffs();
           }.bind(this),
           10000
         );
 
         break;
       case 2:
-        let newSpellData2 = [...this.state.spellData];
-        newSpellData2[index].activeTime = 7;
-        this.setState({
-          growPerClick: this.state.growPerClick * 5,
-          spellData: newSpellData2,
+        this.setState((prevState) => {
+          let objectCopy = Object.assign({}, prevState);
+          objectCopy.spellData[index].activeTime = 7;
+          objectCopy.shopData.forEach((item) => {
+            item.growthFactor *= 5;
+          });
+          return objectCopy;
         });
+        this.updateItemBuffs();
         setTimeout(
           function () {
-            this.setState({
-              growPerClick: this.state.growPerClick / 5,
+            this.setState((prevState) => {
+              let objectCopy = Object.assign({}, prevState);
+              objectCopy.shopData.forEach((item) => {
+                item.growthFactor /= 5;
+              });
+              return objectCopy;
             });
+            this.updateItemBuffs();
           }.bind(this),
           7000
         );
+
         break;
       case 3:
         let growsAdded = Math.floor(this.state.totalGrows / 10);
@@ -439,20 +458,29 @@ class App extends React.Component {
         });
         break;
       case 5:
-        let newSpellData5 = [...this.state.spellData];
-        newSpellData5[index].activeTime = 10;
-        this.setState({
-          spreadPerClick: this.state.spreadPerClick * 2,
-          spellData: newSpellData5,
+        this.setState((prevState) => {
+          let objectCopy = Object.assign({}, prevState);
+          objectCopy.spellData[index].activeTime = 10;
+          objectCopy.shopData.forEach((item) => {
+            item.infectability *= 2;
+          });
+          return objectCopy;
         });
+        this.updateItemBuffs();
         setTimeout(
           function () {
-            this.setState({
-              spreadPerClick: this.state.spreadPerClick / 2,
+            this.setState((prevState) => {
+              let objectCopy = Object.assign({}, prevState);
+              objectCopy.shopData.forEach((item) => {
+                item.infectability /= 2;
+              });
+              return objectCopy;
             });
+            this.updateItemBuffs();
           }.bind(this),
           10000
         );
+
         break;
       default:
         break;
@@ -469,21 +497,88 @@ class App extends React.Component {
     });
   }
 
-  updateItemBuffs(amount, index) {
+  updateItemBuffs() {
     this.setState((prevState) => {
       let objectCopy = Object.assign({}, prevState);
-      objectCopy.growPerClick +=
-        objectCopy.shopData[index].growthFactor * amount;
-      objectCopy.spreadPerClick +=
-        objectCopy.shopData[index].infectability * amount;
-      objectCopy.growClickPerSecond +=
-        objectCopy.shopData[index].growClickPerSecond * amount;
-      objectCopy.spreadClickPerSecond +=
-        objectCopy.shopData[index].spreadClickPerSecond * amount;
-      objectCopy.income += objectCopy.shopData[index].income * amount;
+      objectCopy.growPerClick = 1;
+      objectCopy.spreadPerClick = 5;
+      objectCopy.growClickPerSecond = 0;
+      objectCopy.spreadClickPerSecond = 0;
+      objectCopy.income = 0;
+
+      objectCopy.shopData.forEach((item, index) => {
+        objectCopy.growPerClick += item.growthFactor * item.amount;
+        objectCopy.spreadPerClick += item.infectability * item.amount;
+        objectCopy.growClickPerSecond += item.growClickPerSecond * item.amount;
+        objectCopy.spreadClickPerSecond +=
+          item.spreadClickPerSecond * item.amount;
+        objectCopy.income += item.income * item.amount;
+
+        switch (item.upgrades) {
+          case 0:
+            if (item.amount >= 10) {
+              item.displayUpgrade = true;
+            }
+            break;
+          case 1:
+            if (item.amount >= 25) {
+              item.displayUpgrade = true;
+            }
+            break;
+          case 2:
+            if (item.amount >= 50) {
+              item.displayUpgrade = true;
+            }
+            break;
+          default:
+            break;
+        }
+      });
+
       //UPDATE all stats for the items
       return objectCopy;
     });
+  }
+
+  itemUpgrade(index) {
+    this.setState((prevState) => {
+      let objectCopy = Object.assign({}, prevState);
+      if (
+        objectCopy.currency >=
+        objectCopy.shopData[index].upgradeStats[
+          objectCopy.shopData[index].upgrades
+        ].price
+      ) {
+        objectCopy.currency -=
+          objectCopy.shopData[index].upgradeStats[
+            objectCopy.shopData[index].upgrades
+          ].price;
+        objectCopy.shopData[index].infectability +=
+          objectCopy.shopData[index].upgradeStats[
+            objectCopy.shopData[index].upgrades
+          ].infectability;
+        objectCopy.shopData[index].spreadClickPerSecond +=
+          objectCopy.shopData[index].upgradeStats[
+            objectCopy.shopData[index].upgrades
+          ].spreadClickPerSecond;
+        objectCopy.shopData[index].growthFactor +=
+          objectCopy.shopData[index].upgradeStats[
+            objectCopy.shopData[index].upgrades
+          ].growthFactor;
+        objectCopy.shopData[index].growClickPerSecond +=
+          objectCopy.shopData[index].upgradeStats[
+            objectCopy.shopData[index].upgrades
+          ].growClickPerSecond;
+        objectCopy.shopData[index].income +=
+          objectCopy.shopData[index].upgradeStats[
+            objectCopy.shopData[index].upgrades
+          ].income;
+        objectCopy.shopData[index].upgrades += 1;
+        objectCopy.shopData[index].displayUpgrade = false;
+      }
+      return objectCopy;
+    });
+    this.updateItemBuffs();
   }
 
   saveGame() {
@@ -571,7 +666,11 @@ class App extends React.Component {
               xpToLevelUp={this.state.xpToLevelUp}
               xpProgress={this.state.currentXp / this.state.xpToLevelUp}
             />
-            <Shop shopData={this.state.shopData} buyItem={this.buyItem} />
+            <Shop
+              shopData={this.state.shopData}
+              buyItem={this.buyItem}
+              itemUpgrade={this.itemUpgrade}
+            />
           </Grid>
           <Grid item xs={1} direction="column">
             <SpellBar
