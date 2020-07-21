@@ -154,7 +154,7 @@ class StatsBar extends React.Component {
             >
               <StatToolTip
                 arrow
-                title={"Grow Clicks per Second"}
+                title={"Grow clicks per second"}
                 placement="left"
               >
                 <div
@@ -182,7 +182,7 @@ class StatsBar extends React.Component {
             >
               <StatToolTip
                 arrow
-                title={"Spread Damage Per Click"}
+                title={"Spread damage per click"}
                 placement="left"
               >
                 <div
@@ -212,7 +212,7 @@ class StatsBar extends React.Component {
             >
               <StatToolTip
                 arrow
-                title={"Grow Increase Per Click"}
+                title={"Nutrient increase per click"}
                 placement="left"
               >
                 <div>
@@ -232,7 +232,7 @@ class StatsBar extends React.Component {
             >
               <StatToolTip
                 arrow
-                title={"Spread Click Per Second"}
+                title={"Spread Clicks Per Second"}
                 placement="left"
               >
                 <div>

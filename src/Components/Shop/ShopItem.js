@@ -358,7 +358,7 @@ class ShopItem extends React.Component {
                 <div
                   style={{
                     height: "93px",
-                    width: "30px",
+                    width: "35px",
                     backgroundColor: "#263238",
                     float: "left",
                   }}
@@ -436,7 +436,7 @@ class ShopItem extends React.Component {
                 <div
                   style={{
                     height: "93px",
-                    width: "120px",
+                    width: "115px",
                     backgroundColor: "black",
                     float: "left",
                   }}
@@ -463,7 +463,7 @@ class ShopItem extends React.Component {
                   <div
                     style={{
                       height: "53px",
-                      width: "120px",
+                      width: "115px",
                       position: "absolute",
                       zIndex: "2",
                       marginTop: "-51px",
