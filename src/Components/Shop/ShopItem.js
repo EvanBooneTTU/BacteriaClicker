@@ -232,7 +232,15 @@ class ShopItem extends React.Component {
                 className={classes.avatar}
                 variant="circle"
                 alt={this.props.alt}
-                src={this.props.src}
+                src={
+                  this.props.upgrades === 1
+                    ? this.props.upgradeSrc1
+                    : this.props.upgrades === 2
+                    ? this.props.upgradeSrc2
+                    : this.props.upgrades === 3
+                    ? this.props.upgradeSrc3
+                    : this.props.src
+                }
               />
             </ItemTooltip>
             <ListItemText
@@ -442,7 +450,15 @@ class ShopItem extends React.Component {
                     }}
                     variant="circle"
                     alt={this.props.alt}
-                    src={this.props.src}
+                    src={
+                      this.props.upgrades === 0
+                        ? this.props.upgradeSrc1
+                        : this.props.upgrades === 1
+                        ? this.props.upgradeSrc2
+                        : this.props.upgrades === 2
+                        ? this.props.upgradeSrc3
+                        : this.props.src
+                    }
                   />
                   <div
                     style={{

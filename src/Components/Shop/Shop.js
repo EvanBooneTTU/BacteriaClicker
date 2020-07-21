@@ -42,6 +42,9 @@ class Shop extends React.Component {
           upgradeStats={item.upgradeStats}
           displayUpgrade={item.displayUpgrade}
           upgradeClick={props.itemUpgrade}
+          upgradeSrc1={item.upgradeSrc1}
+          upgradeSrc2={item.upgradeSrc2}
+          upgradeSrc3={item.upgradeSrc3}
         />
       );
     });
