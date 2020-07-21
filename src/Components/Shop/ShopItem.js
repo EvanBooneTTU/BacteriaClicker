@@ -14,7 +14,7 @@ import { prettyNumber } from "../PrettyNumber";
 const styles = (theme) => ({
   root: {
     paddingLeft: "5px",
-    height: "160px",
+    height: "165px",
     backgroundColor: "#171c1e",
     minWidth: "400px",
   },

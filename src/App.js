@@ -161,7 +161,7 @@ class App extends React.Component {
           spell.active = false;
         }
       });
-      objectCopy.spellData[0].spellDamage = objectCopy.totalXp / 10;
+      objectCopy.spellData[0].spellDamage = objectCopy.totalXp / 3.5;
       objectCopy.spellData[3].spellDamage = Math.floor(
         this.state.totalGrows / 10
       );
@@ -178,6 +178,7 @@ class App extends React.Component {
         objectCopy.spreadButtonProgress = 0;
         objectCopy.spreadCurrentValue = 0;
         objectCopy.currentXp += gameData[prevState.playerLevel - 1].xpPerKill;
+        objectCopy.totalXp += gameData[prevState.playerLevel - 1].xpPerKill;
         objectCopy.spreadMaxValue +=
           gameData[prevState.playerLevel - 1].hpIncreasePerKill;
         objectCopy.currency += gameData[prevState.playerLevel - 1].goldPerKill;
@@ -212,6 +213,12 @@ class App extends React.Component {
         objectCopy.shopData.forEach((item) => {
           if (item.levelToUnlock === objectCopy.playerLevel) {
             item.itemUnlocked = true;
+          }
+        });
+        //Unlock Locked Spells
+        objectCopy.spellData.forEach((item) => {
+          if (item.levelToUnlock === objectCopy.playerLevel) {
+            item.spellUnlocked = true;
           }
         });
         objectCopy.currentXp = 0;
@@ -495,6 +502,7 @@ class App extends React.Component {
       objectCopy.spellData[index].onCooldown = true;
       return objectCopy;
     });
+    this.updateItemBuffs();
   }
 
   updateItemBuffs() {
@@ -505,6 +513,13 @@ class App extends React.Component {
       objectCopy.growClickPerSecond = 0;
       objectCopy.spreadClickPerSecond = 0;
       objectCopy.income = 0;
+
+      if (objectCopy.spellData[1].activeTime > 0) {
+        objectCopy.growPerClick += 1;
+      }
+      if (objectCopy.spellData[2].activeTime > 0) {
+        objectCopy.growPerClick += 4;
+      }
 
       objectCopy.shopData.forEach((item, index) => {
         objectCopy.growPerClick += item.growthFactor * item.amount;
