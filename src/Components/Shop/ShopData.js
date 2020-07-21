@@ -1,7 +1,7 @@
 export const shopData = [
   {
     //Make the item hover show the name "Heart Palpitations", move it show its shows "Rank 0, Rank 1, etc.."
-    itemName: "Heart Palpitation",
+    itemName: "Heart Palpitations",
     infectability: 0,
     spreadClickPerSecond: 0,
     growthFactor: 2,
@@ -33,6 +33,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 4,
         price: 10000,
+        name: "Heart I",
       },
       {
         infectability: 0,
@@ -41,6 +42,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 85,
         price: 6000000,
+        name: "Heart II",
       },
       {
         infectability: 10,
@@ -49,6 +51,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 250,
         price: 1000000,
+        name: "Heart III",
       },
       {
         infectability: 0,
@@ -57,11 +60,12 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 1000000,
+        name: "Heart IV",
       },
     ],
   },
   {
-    itemName: "Lungs",
+    itemName: "Bronchitis",
     infectability: 0,
     spreadClickPerSecond: 0,
     growthFactor: 0,
@@ -93,6 +97,7 @@ export const shopData = [
         growClickPerSecond: 1,
         income: 15,
         price: 15000,
+        name: "Bronch I",
       },
       {
         infectability: 0,
@@ -101,6 +106,7 @@ export const shopData = [
         growClickPerSecond: 4,
         income: 180,
         price: 9000000,
+        name: "Bronch II",
       },
       {
         infectability: 0,
@@ -109,6 +115,7 @@ export const shopData = [
         growClickPerSecond: 3,
         income: 10,
         price: 1000000,
+        name: "Bronch III",
       },
       {
         infectability: 0,
@@ -117,11 +124,12 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 1000000,
+        name: "Bronch IV",
       },
     ],
   },
   {
-    itemName: "Livers",
+    itemName: "Liver failure",
     infectability: 10,
     spreadClickPerSecond: 0,
     growthFactor: 0,
@@ -153,6 +161,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 7,
         price: 10000,
+        name: "Liver I",
       },
       {
         infectability: 70,
@@ -161,6 +170,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 90,
         price: 6000000,
+        name: "Liver II",
       },
       {
         infectability: 250,
@@ -169,6 +179,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 175,
         price: 1000000,
+        name: "Liver III",
       },
       {
         infectability: 0,
@@ -177,11 +188,12 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 1000000,
+        name: "Liver IV",
       },
     ],
   },
   {
-    itemName: "Ovaries",
+    itemName: "Cervical cancer",
     infectability: 0,
     spreadClickPerSecond: 0,
     growthFactor: 0,
@@ -213,6 +225,7 @@ export const shopData = [
         growClickPerSecond: 2,
         income: 0,
         price: 40000,
+        name: "Cervical I",
       },
       {
         infectability: 0,
@@ -221,6 +234,7 @@ export const shopData = [
         growClickPerSecond: 3,
         income: 0,
         price: 1000000,
+        name: "Cervical II",
       },
       {
         infectability: 0,
@@ -229,6 +243,7 @@ export const shopData = [
         growClickPerSecond: 4,
         income: 0,
         price: 20000000,
+        name: "Cervical III",
       },
       {
         infectability: 0,
@@ -237,11 +252,12 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 1000000,
+        name: "Cervical IV",
       },
     ],
   },
   {
-    itemName: "Teeth",
+    itemName: "Blindess",
     infectability: 0,
     spreadClickPerSecond: 0,
     growthFactor: 10,
@@ -273,6 +289,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 80000,
+        name: "Blind I",
       },
       {
         infectability: 0,
@@ -281,6 +298,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 2000000,
+        name: "Blind II",
       },
       {
         infectability: 0,
@@ -289,6 +307,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 35000000,
+        name: "Blind III",
       },
       {
         infectability: 0,
@@ -297,11 +316,12 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 1000000,
+        name: "Blind IV",
       },
     ],
   },
   {
-    itemName: "Teeth",
+    itemName: "Osteoporosis",
     infectability: 50,
     spreadClickPerSecond: 0,
     growthFactor: 0,
@@ -333,6 +353,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 300000,
+        name: "Osteo I",
       },
       {
         infectability: 100,
@@ -341,6 +362,7 @@ export const shopData = [
         growClickPerSecond: 2,
         income: 0,
         price: 7500000,
+        name: "Osteo II",
       },
       {
         infectability: 200,
@@ -349,6 +371,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 150000000,
+        name: "Osteo III",
       },
       {
         infectability: 0,
@@ -357,11 +380,12 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 1000000,
+        name: "Osteo IV",
       },
     ],
   },
   {
-    itemName: "Last",
+    itemName: "Brain tumors",
     infectability: 0,
     spreadClickPerSecond: 1,
     growthFactor: 0,
@@ -393,6 +417,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 350000,
+        name: "Tumor I",
       },
       {
         infectability: 30,
@@ -401,6 +426,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 9000000,
+        name: "Tumor II",
       },
       {
         infectability: 0,
@@ -409,6 +435,7 @@ export const shopData = [
         growClickPerSecond: 3,
         income: 0,
         price: 450000000,
+        name: "Tumor III",
       },
       {
         infectability: 0,
@@ -417,6 +444,7 @@ export const shopData = [
         growClickPerSecond: 0,
         income: 0,
         price: 1000000,
+        name: "Tumor IV",
       },
     ],
   },

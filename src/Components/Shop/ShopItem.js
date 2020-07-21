@@ -116,8 +116,14 @@ class ShopItem extends React.Component {
                 src="./Images/coins.png"
                 className={classes.coinIcon}
               />
-              <div style={{ paddingRight: "19px" }}>
-                {this.props.price.toFixed(0)}
+              <div
+                style={{
+                  paddingRight: "19px",
+                  fontWeight: "900",
+                  fontSize: "16px",
+                }}
+              >
+                {prettyNumber(this.props.price)}
               </div>
             </Button>
             <MultiBuyTooltip
@@ -151,6 +157,7 @@ class ShopItem extends React.Component {
               <Button
                 className={classes.button}
                 onClick={() => this.props.buyItem(10, this.props.id)}
+                style={{ fontWeight: "900", fontSize: "16px" }}
               >
                 +10
               </Button>
@@ -186,6 +193,7 @@ class ShopItem extends React.Component {
               <Button
                 className={classes.button}
                 onClick={() => this.props.buyItem(100, this.props.id)}
+                style={{ fontWeight: "900", fontSize: "16px" }}
               >
                 +100
               </Button>
@@ -221,6 +229,7 @@ class ShopItem extends React.Component {
               <Button
                 className={classes.button}
                 onClick={() => this.props.buyItem(1000, this.props.id)}
+                style={{ fontWeight: "900", fontSize: "16px" }}
               >
                 +1000
               </Button>
@@ -369,7 +378,11 @@ class ShopItem extends React.Component {
                     variant="body2"
                     className={classes.inline}
                     style={{
-                      color: "white",
+                      color:
+                        this.props.upgradeStats[this.props.upgrades]
+                          .growthFactor === 0
+                          ? "gray"
+                          : "white",
                       paddingLeft: "5px",
                     }}
                   >
@@ -381,7 +394,11 @@ class ShopItem extends React.Component {
                     variant="body2"
                     className={classes.inline}
                     style={{
-                      color: "white",
+                      color:
+                        this.props.upgradeStats[this.props.upgrades]
+                          .growClickPerSecond === 0
+                          ? "gray"
+                          : "white",
                       paddingLeft: "5px",
                     }}
                   >
@@ -397,7 +414,11 @@ class ShopItem extends React.Component {
                     variant="body2"
                     className={classes.inline}
                     style={{
-                      color: "white",
+                      color:
+                        this.props.upgradeStats[this.props.upgrades]
+                          .infectability === 0
+                          ? "gray"
+                          : "white",
                       paddingLeft: "5px",
                     }}
                   >
@@ -410,7 +431,11 @@ class ShopItem extends React.Component {
                     variant="body2"
                     className={classes.inline}
                     style={{
-                      color: "white",
+                      color:
+                        this.props.upgradeStats[this.props.upgrades]
+                          .spreadClickPerSecond === 0
+                          ? "gray"
+                          : "white",
                       paddingLeft: "5px",
                     }}
                   >
@@ -426,7 +451,11 @@ class ShopItem extends React.Component {
                     variant="body2"
                     className={classes.inline}
                     style={{
-                      color: "white",
+                      color:
+                        this.props.upgradeStats[this.props.upgrades].income ===
+                        0
+                          ? "gray"
+                          : "white",
                       paddingLeft: "5px",
                     }}
                   >
@@ -512,7 +541,7 @@ class ShopItem extends React.Component {
                         variant="h5"
                         noWrap
                       >
-                        Colonies
+                        {this.props.upgradeStats[this.props.upgrades].name}
                       </Typography>
                     </div>
                   </div>
