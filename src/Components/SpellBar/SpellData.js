@@ -1,7 +1,7 @@
 export const spellData = [
   {
     spellName: "Spell 1",
-    src: "./Images/Spells/edited-1.png",
+    src: "./Images/Spells/Spell1.png",
     alt: "aaa",
     index: 0,
     spellUnlocked: true,
@@ -19,7 +19,7 @@ export const spellData = [
   },
   {
     spellName: "Spell 2",
-    src: "./Images/Spells/edited-2.png",
+    src: "./Images/Spells/Spell2.png",
     alt: "aaa",
     index: 1,
     spellUnlocked: true,
@@ -36,7 +36,7 @@ export const spellData = [
   },
   {
     spellName: "Spell 3",
-    src: "./Images/Spells/edited-3.png",
+    src: "./Images/Spells/Spell3.png",
     alt: "aaa",
     index: 2,
     spellUnlocked: false,
@@ -53,7 +53,7 @@ export const spellData = [
   },
   {
     spellName: "Spell 4",
-    src: "./Images/Spells/edited-4.png",
+    src: "./Images/Spells/Spell4.png",
     alt: "aaa",
     index: 3,
     spellUnlocked: false,
@@ -70,7 +70,7 @@ export const spellData = [
   },
   {
     spellName: "Spell 5",
-    src: "./Images/Spells/edited-5.png",
+    src: "./Images/Spells/Spell5.png",
     alt: "aaa",
     index: 4,
     spellUnlocked: false,
@@ -87,7 +87,7 @@ export const spellData = [
   },
   {
     spellName: "Spell 6",
-    src: "./Images/Spells/edited-6.png",
+    src: "./Images/Spells/Spell6.png",
     alt: "aaa",
     index: 5,
     spellUnlocked: false,
@@ -104,7 +104,7 @@ export const spellData = [
   },
   {
     spellName: "NoClick",
-    src: "./Images/Spells/edited-7.png",
+    src: "./Images/Spells/Spell7.png",
     alt: "aaa",
     index: 6,
     spellUnlocked: false,

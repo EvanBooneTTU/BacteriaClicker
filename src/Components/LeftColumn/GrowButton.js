@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   },
   button: {
     all: "unset",
-    backgroundImage: `url(${"./Images/Summoners_Rift_Top_5.png"})`,
+    backgroundImage: `url(${"./Images/Summoners_Rift_Top.png"})`,
     backgroundSize: "cover",
     marginTop: "-22px",
     height: "calc(100% - 84px)",
@@ -154,7 +154,7 @@ export default function GrowButton(props) {
             }
           }}
           className={classes.growIcon}
-          src="./Images/Plague_Icon_3.png"
+          src="./Images/Plague_Icon.png"
           alt="Dummy growIcon"
         />
       </button>

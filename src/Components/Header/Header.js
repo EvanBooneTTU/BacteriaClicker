@@ -134,7 +134,7 @@ export default function Header(props) {
       <AppBar className={classes.AppBarRoot} position="static">
         <Toolbar variant="dense">
           <Typography variant="h6" className={classes.title}>
-            Covid Clicker
+            Bacteria Clicker
           </Typography>
           <ButtonGroup
             variant="text"
