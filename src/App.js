@@ -61,7 +61,7 @@ class App extends React.Component {
       currentXp: 0,
       xpToLevelUp: 1000,
       time: 0,
-      autoSave: false,
+      autoSave: true,
       totalXp: 0,
       //Stats values
       nutrientsCollected: 0,
@@ -286,7 +286,7 @@ class App extends React.Component {
 
     this.intervalID = setInterval(() => this.passiveButtonClicks(), 1000);
     if (this.state.autoSave) {
-      this.intervalID = setInterval(() => this.saveGame(), 60000);
+      this.intervalID = setInterval(() => this.saveGame(), 30000);
     }
 
     this.intervalID = setInterval(() => this.passiveIncome(), 250);
@@ -502,7 +502,7 @@ class App extends React.Component {
     this.setState((prevState) => {
       let objectCopy = Object.assign({}, prevState);
       objectCopy.growPerClick = 1;
-      objectCopy.spreadPerClick = 5;
+      objectCopy.spreadPerClick = 5 + objectCopy.totalGrows * 2;
       objectCopy.growClickPerSecond = 0;
       objectCopy.spreadClickPerSecond = 0;
       objectCopy.income = 0;
