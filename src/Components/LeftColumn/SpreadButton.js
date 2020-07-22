@@ -63,7 +63,7 @@ const useStyles = makeStyles({
   },
   button: {
     all: "unset",
-    backgroundImage: `url(${"./Images/valley_2.png"})`,
+    backgroundImage: `url(${"./Images/valley.png"})`,
     backgroundSize: "cover",
     marginTop: "-23px",
     height: "calc(100% - 85px)",
