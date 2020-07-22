@@ -121,6 +121,7 @@ export default function Header(props) {
 
   const handleHelpOpen = () => {
     setHelpOpen(true);
+    props.helpButtonClick();
   };
 
   const handleHelpClose = () => {
@@ -154,7 +155,13 @@ export default function Header(props) {
             <Button className={classes.buttonColors} onClick={modalHandleOpen}>
               New Game
             </Button>
-            <Button className={classes.buttonColors} onClick={handleHelpOpen}>
+            <Button
+              className={classes.buttonColors}
+              onClick={handleHelpOpen}
+              style={{
+                boxShadow: props.firstOpen ? "0 0 4px 3px red" : "",
+              }}
+            >
               Help
             </Button>
             <Button

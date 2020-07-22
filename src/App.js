@@ -38,9 +38,10 @@ class App extends React.Component {
     this.newGame = this.newGame.bind(this);
     this.itemUpgrade = this.itemUpgrade.bind(this);
     this.updateItemBuffs = this.updateItemBuffs.bind(this);
+    this.helpButtonClick = this.helpButtonClick.bind(this);
 
     this.state = {
-      currency: 50000000,
+      currency: 0,
       growPerClick: 1, //Is == to infectability DONE
       spreadPerClick: 5, //Is == to growthFactor DONE
       growClickPerSecond: 0, //DONE
@@ -71,6 +72,7 @@ class App extends React.Component {
       spreadClicks: 0,
       goldEarned: 0,
       goldSpent: 0,
+      firstOpen: true,
     };
   }
 
@@ -602,20 +604,9 @@ class App extends React.Component {
     });
   }
 
-  /*
-1. nutrientsCollected
-2. clickedNutrients
-3. growClicks
-4. totalGrows
-5. damageDealt
-6. clickedDamage
-7. spreadClicks
-8. totalSpreads
-9. goldEarned
-10. goldSpent
-11. totalXp
-12. growClicks + spreadClicks
-  */
+  helpButtonClick() {
+    this.setState({ firstOpen: false });
+  }
 
   render() {
     const { classes } = this.props;
@@ -638,6 +629,8 @@ class App extends React.Component {
               goldSpent={this.state.goldSpent}
               totalXp={this.state.totalXp}
               totalClicks={this.state.growClicks + this.state.spreadClicks}
+              firstOpen={this.state.firstOpen}
+              helpButtonClick={this.helpButtonClick}
             />
           </Grid>
           <Grid item container xs={4} direction="row" className={classes.test}>
