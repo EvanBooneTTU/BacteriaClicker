@@ -229,7 +229,6 @@ class App extends React.Component {
             gameData[objectCopy.playerLevel - 1].xpToLevelUp;
           objectCopy.spreadMaxValue =
             gameData[objectCopy.playerLevel - 1].maxHpPerKill;
-          console.log(objectCopy.spreadMaxValue);
         } else {
           objectCopy.xpToLevelUp = 9999999999;
           gameData.spreadMaxValue = 100000000;
@@ -243,12 +242,10 @@ class App extends React.Component {
     this.setState((prevState) => {
       let objectCopy = Object.assign({}, prevState);
       objectCopy.shopData.forEach((item) => {
-        console.log(item.index);
         objectCopy.shopData[item.index].price = this.calculatePurchaseCost(
           1,
           item.index
         );
-        console.log("purchase cost: " + objectCopy.shopData[item.index].price);
         objectCopy.shopData[item.index].price10 = this.calculatePurchaseCost(
           10,
           item.index
@@ -342,17 +339,11 @@ class App extends React.Component {
         objectCopy.currency = prevState.currency - totalPrice;
         objectCopy.goldSpent += totalPrice;
         //Increments item price
-        console.log(Math.pow(1.15, amount));
         objectCopy.shopData[index].price =
           prevState.shopData[index].price * Math.pow(1.15, amount);
         //Increments amount of item in shop data
         objectCopy.shopData[index].amount =
           prevState.shopData[index].amount + amount;
-        console.log(
-          objectCopy.shopData[index].itemName +
-            " " +
-            objectCopy.shopData[index].amount
-        );
 
         objectCopy.shopData[index].price = this.calculatePurchaseCost(1, index);
         objectCopy.shopData[index].price10 = this.calculatePurchaseCost(
@@ -661,7 +652,7 @@ class App extends React.Component {
               />
             </Grid>
           </Grid>
-          <Grid item xs={7} direction="column">
+          <Grid item xs={7} container direction="column">
             <StatsBar
               currency={this.state.currency}
               growPerClick={this.state.growPerClick}
@@ -680,7 +671,7 @@ class App extends React.Component {
               itemUpgrade={this.itemUpgrade}
             />
           </Grid>
-          <Grid item xs={1} direction="column">
+          <Grid item xs={1} container direction="column">
             <SpellBar
               activateSpell={this.activateSpell}
               spellData={this.state.spellData}

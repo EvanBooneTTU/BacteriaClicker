@@ -27,6 +27,7 @@ class SpellBar extends React.Component {
     props.spellData.forEach((spell, index) => {
       spells[index] = (
         <Spell
+          key={spell.spellName}
           spellName={spell.spellName}
           src={spell.src}
           spellUnlocked={spell.spellUnlocked}

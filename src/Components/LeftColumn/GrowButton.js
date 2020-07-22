@@ -140,6 +140,7 @@ export default function GrowButton(props) {
               ...prevArray,
               <div
                 id="growClickAnimation"
+                key={prevArray.length}
                 style={{
                   top: event.clientY - 25,
                   left: event.clientX - 15 + randomNumber(-7, 7),

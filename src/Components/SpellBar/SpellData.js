@@ -1,6 +1,6 @@
 export const spellData = [
   {
-    spellName: "Smite",
+    spellName: "Spell 1",
     src: "./Images/Spells/edited-1.png",
     alt: "aaa",
     index: 0,
@@ -18,7 +18,7 @@ export const spellData = [
     active: false,
   },
   {
-    spellName: "Smite",
+    spellName: "Spell 2",
     src: "./Images/Spells/edited-2.png",
     alt: "aaa",
     index: 1,
@@ -35,7 +35,7 @@ export const spellData = [
     active: false,
   },
   {
-    spellName: "Smite",
+    spellName: "Spell 3",
     src: "./Images/Spells/edited-3.png",
     alt: "aaa",
     index: 2,
@@ -52,7 +52,7 @@ export const spellData = [
     active: false,
   },
   {
-    spellName: "Smite",
+    spellName: "Spell 4",
     src: "./Images/Spells/edited-4.png",
     alt: "aaa",
     index: 3,
@@ -69,7 +69,7 @@ export const spellData = [
     active: false,
   },
   {
-    spellName: "Smite",
+    spellName: "Spell 5",
     src: "./Images/Spells/edited-5.png",
     alt: "aaa",
     index: 4,
@@ -86,7 +86,7 @@ export const spellData = [
     active: false,
   },
   {
-    spellName: "Smite",
+    spellName: "Spell 6",
     src: "./Images/Spells/edited-6.png",
     alt: "aaa",
     index: 5,

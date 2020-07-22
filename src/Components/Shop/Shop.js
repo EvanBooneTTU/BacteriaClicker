@@ -18,6 +18,7 @@ class Shop extends React.Component {
     props.shopData.forEach((item, index) => {
       shopItemBars[index] = (
         <ShopItem
+          key={item.itemName}
           alt={item.alt}
           src={item.src}
           divider={item.divider}

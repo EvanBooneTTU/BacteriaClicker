@@ -164,6 +164,7 @@ export default function SpreadButton(props) {
               ...prevArray,
               <div
                 id="spreadClickAnimation"
+                key={prevArray.length}
                 style={{
                   top: event.clientY - 25,
                   left: event.clientX - 15 + randomNumber(-7, 7),

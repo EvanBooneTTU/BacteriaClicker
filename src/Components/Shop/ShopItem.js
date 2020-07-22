@@ -75,7 +75,7 @@ const MultiBuyTooltip = withStyles((theme) => ({
     backgroundColor: "#263238",
     color: "#86806C",
     fontSize: 10,
-    width: "62px",
+    width: "80px",
     height: "16px",
   },
   arrow: {
