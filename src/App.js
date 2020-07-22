@@ -20,7 +20,7 @@ const styles = (theme) => ({
   },
   root: {
     height: "100%",
-    backgroundColor: "cyan",
+    backgroundColor: "#171c1e",
   },
 });
 
