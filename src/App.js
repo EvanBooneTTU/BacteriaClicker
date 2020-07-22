@@ -39,6 +39,7 @@ class App extends React.Component {
     this.itemUpgrade = this.itemUpgrade.bind(this);
     this.updateItemBuffs = this.updateItemBuffs.bind(this);
     this.helpButtonClick = this.helpButtonClick.bind(this);
+    this.clock = this.clock.bind(this);
 
     this.state = {
       currency: 0,
@@ -150,9 +151,49 @@ class App extends React.Component {
     this.setState((prevState) => {
       //Spread Button Click
       let objectCopy = Object.assign({}, prevState);
-      //also sets time due to occuring every 1 second
-      objectCopy.time += 1;
 
+      objectCopy.spreadCurrentValue =
+        prevState.spreadCurrentValue +
+        prevState.spreadPerClick * (prevState.spreadClickPerSecond / 2);
+      objectCopy.spreadButtonProgress =
+        objectCopy.spreadCurrentValue / objectCopy.spreadMaxValue;
+      objectCopy.damageDealt +=
+        prevState.spreadPerClick * (prevState.spreadClickPerSecond / 2);
+      if (objectCopy.spreadButtonProgress >= 1.0) {
+        objectCopy.totalSpreads++;
+        objectCopy.spreadButtonProgress = 0;
+        objectCopy.spreadCurrentValue = 0;
+        objectCopy.currentXp += gameData[prevState.playerLevel - 1].xpPerKill;
+        objectCopy.totalXp += gameData[prevState.playerLevel - 1].xpPerKill;
+        objectCopy.spreadMaxValue +=
+          gameData[prevState.playerLevel - 1].hpIncreasePerKill;
+        objectCopy.currency += gameData[prevState.playerLevel - 1].goldPerKill;
+      }
+      //Grow Button Click
+      objectCopy.growCurrentValue =
+        prevState.growCurrentValue +
+        prevState.growPerClick * (prevState.growClickPerSecond / 2);
+      objectCopy.growButtonProgress =
+        objectCopy.growCurrentValue / objectCopy.growMaxValue;
+      objectCopy.nutrientsCollected +=
+        prevState.growPerClick * (prevState.growClickPerSecond / 2);
+      if (objectCopy.growButtonProgress >= 1.0) {
+        objectCopy.totalGrows++;
+        objectCopy.growButtonProgress = 0;
+        objectCopy.growCurrentValue = 0;
+        objectCopy.growMaxValue =
+          prevState.growMaxValue + (prevState.playerLevel + 3);
+        objectCopy.spreadPerClick = prevState.spreadPerClick + 2;
+      }
+      return objectCopy;
+    });
+    this.checkLevelUp();
+  }
+
+  clock() {
+    this.setState((prevState) => {
+      let objectCopy = Object.assign({}, prevState);
+      objectCopy.time += 1;
       objectCopy.spellData.forEach((spell) => {
         spell.cooldownTimer -= 1;
         spell.activeTime -= 1;
@@ -167,43 +208,8 @@ class App extends React.Component {
       objectCopy.spellData[3].spellDamage = Math.floor(
         this.state.totalGrows / 10
       );
-
-      objectCopy.spreadCurrentValue =
-        prevState.spreadCurrentValue +
-        prevState.spreadPerClick * prevState.spreadClickPerSecond;
-      objectCopy.spreadButtonProgress =
-        objectCopy.spreadCurrentValue / objectCopy.spreadMaxValue;
-      objectCopy.damageDealt +=
-        prevState.spreadPerClick * prevState.spreadClickPerSecond;
-      if (objectCopy.spreadButtonProgress >= 1.0) {
-        objectCopy.totalSpreads++;
-        objectCopy.spreadButtonProgress = 0;
-        objectCopy.spreadCurrentValue = 0;
-        objectCopy.currentXp += gameData[prevState.playerLevel - 1].xpPerKill;
-        objectCopy.totalXp += gameData[prevState.playerLevel - 1].xpPerKill;
-        objectCopy.spreadMaxValue +=
-          gameData[prevState.playerLevel - 1].hpIncreasePerKill;
-        objectCopy.currency += gameData[prevState.playerLevel - 1].goldPerKill;
-      }
-      //Grow Button Click
-      objectCopy.growCurrentValue =
-        prevState.growCurrentValue +
-        prevState.growPerClick * prevState.growClickPerSecond;
-      objectCopy.growButtonProgress =
-        objectCopy.growCurrentValue / objectCopy.growMaxValue;
-      objectCopy.nutrientsCollected +=
-        prevState.growPerClick * prevState.growClickPerSecond;
-      if (objectCopy.growButtonProgress >= 1.0) {
-        objectCopy.totalGrows++;
-        objectCopy.growButtonProgress = 0;
-        objectCopy.growCurrentValue = 0;
-        objectCopy.growMaxValue =
-          prevState.growMaxValue + (prevState.playerLevel + 3);
-        objectCopy.spreadPerClick = prevState.spreadPerClick + 2;
-      }
       return objectCopy;
     });
-    this.checkLevelUp();
   }
 
   checkLevelUp() {
@@ -284,7 +290,8 @@ class App extends React.Component {
       inititialStateValues = Object.assign({}, this.state);
     }
 
-    this.intervalID = setInterval(() => this.passiveButtonClicks(), 1000);
+    this.intervalID = setInterval(() => this.clock(), 1000);
+    this.intervalID = setInterval(() => this.passiveButtonClicks(), 500);
     if (this.state.autoSave) {
       this.intervalID = setInterval(() => this.saveGame(), 30000);
     }
