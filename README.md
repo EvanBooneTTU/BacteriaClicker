@@ -5,11 +5,11 @@ Bacteria Clicker is a plague-themed incremental game created in React JS and hos
 Bacteria Clicker can be played [Here](https://bacteriaclicker.co).
 
 ### Running Locally
-
+<pre>
 To Run Bacteria Clicker locally on your machine:<br/>
     - Clone/download project on your machine.<br/>
     - Run <code>npm install && npm start</code> to see Bacteria Clicker in action.<br/>
-
+</pre>
 ### Screenshot
 
 ![Gameplay](screenshots/main_screenshot.png) 
