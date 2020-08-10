@@ -14,4 +14,4 @@ To Run Bacteria Clicker locally on your machine:
 
 ### Screenshot
 
-![Gameplay](screenshots/main_screenshot.png)
+![Gameplay](screenshots/main_screenshot.png) 
