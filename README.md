@@ -6,8 +6,8 @@ Bacteria Clicker can be played [Here](https://bacteriaclicker.co).
 
 ### Running Locally
 
-To Run Bacteria Clicker locally on your machine:<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;- Clone/download project on your machine.<br/>
+To Run Bacteria Clicker locally on your machine:<br/><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;- Clone/download project on your machine.<br/><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;- Run <code>npm install && npm start</code> to see Bacteria Clicker in action.<br/>
 
 ### Screenshot
